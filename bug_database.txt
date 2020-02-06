@@ -4,7 +4,4 @@ Format is (Name of the bug, description, when you caught the bag)
 
 Example:
 0.
-a) database handle error
-b) database cannot handle the error because authorization has been denied for user
-c) 31.01.20 11.51
-d)
+1.
