@@ -1,5 +1,5 @@
 """
-ASGI config for daewoo_pack_erp project.
+ASGI config for dwproone_backend project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'daewoo_pack_erp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dwproone_backend.settings')
 
 application = get_asgi_application()
