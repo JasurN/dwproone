@@ -24,7 +24,7 @@ class PaperFormat(models.Model):
     format = models.PositiveSmallIntegerField(help_text="format of paper")
 
     def __str__(self):
-        return self.format
+        return str(self.format)
 
 
 # Paper Grammage model
@@ -32,7 +32,7 @@ class PaperGrammage(models.Model):
     grammage = models.PositiveSmallIntegerField(help_text="grammage of paper")
 
     def __str__(self):
-        return self.grammage
+        return str(self.grammage)
 
 
 # Main model for Paper information
@@ -45,29 +45,44 @@ class Paper(models.Model):
                                      help_text="paper format: 800-1450")
     company = models.ForeignKey(Company, on_delete=models.CASCADE,
                                 help_text="company produced which paper ")
-    paper_amount = models.PositiveIntegerField("current amount of paper")
+    paper_amount = models.PositiveIntegerField(help_text="current amount of paper")
     paper_amount_remained_from_last_month = models.PositiveIntegerField(
         help_text="amount of paper remained from last month")
 
     def __str__(self):
         """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
         return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
-            self.grammage.grammage) + " : " + str(self.paper_amount)
+            self.grammage.grammage) + " : amount = " + str(self.paper_amount)
 
 
 # model for Paper consumption
 class PaperConsumption(models.Model):
-    pass
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
+                              help_text="Paper that is Consumed",
+                              default=1)
+    paper_consumed = models.PositiveIntegerField(help_text="consumed amount of paper",
+                                                 default=0)
+
+    def __str__(self):
+        return self.paper.company.name
 
 
 # model for Paper incoming
 class PaperIncoming(models.Model):
-    pass
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
+                              help_text="Paper that is Income",
+                              default=1)
+    paper_income = models.PositiveIntegerField(help_text="income amount of paper",
+                                               default=0)
 
 
 # model for Paper incoming from production. left from production
 class PaperIncomeRemainingFromProduction(models.Model):
-    pass
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
+                              help_text="Paper that is Income from production",
+                              default=1)
+    paper_income_production = models.PositiveIntegerField(help_text="income amount of paper from production",
+                                                          default=0)
 
 # PaperType.objects.bulk_create([
 #     PaperType(name="KLB", code="K", description="cellulose"),
