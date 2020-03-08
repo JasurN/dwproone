@@ -1,3 +1,3 @@
 #!/bin/bash
-fuser -k 8000/tcp
+sudo systemctl stop nginx
 python manage.py runserver
