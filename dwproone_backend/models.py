@@ -51,6 +51,7 @@ class PaperIncoming(models.Model):
 class PaperIncomeRemainingFromProduction(models.Model):
     pass
 
+
 # PaperType.objects.bulk_create([
 #     PaperType(name="KLB", code="K", description="cellulose"),
 #     PaperType(name="CMP", code="S", description="corrugated paper"),
@@ -79,4 +80,18 @@ class PaperIncomeRemainingFromProduction(models.Model):
 #     PaperGrammage(grammage=135),
 #     PaperGrammage(grammage=140),
 #     PaperGrammage(grammage=150),
+# ])
+
+# Company.objects.bulk_create([
+#     Company(name="Bratsk"),
+#     Company(name="ENSO"),
+#     Company(name="Namangan"),
+#     Company(name="PTSBK"),
+#     Company(name="BSQ"),
+#     Company(name="Nafis"),
+# ])
+
+# Paper.objects.bulk_create([
+#     print(PaperType.objects.get(name='KLP'))
+#
 # ])
