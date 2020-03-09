@@ -26,5 +26,6 @@ def do_paper_income_remained_from_production(request):
     paperTempObj = Paper.objects.get(request.body.id)
     paperTempObj += request.body.amount
     paperTempObj.save()
-    paperIncomeRemainingFromProductionObj = PaperIncomeRemainingFromProduction(paper_id=request.body.id, paper_income=request.body.amount)
+    paperIncomeRemainingFromProductionObj = PaperIncomeRemainingFromProduction(paper_id=request.body.id,
+                                                                               paper_income=request.body.amount)
     paperIncomeRemainingFromProductionObj.save()
