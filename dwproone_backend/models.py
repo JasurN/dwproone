@@ -123,7 +123,4 @@ class PaperIncomeRemainingFromProduction(models.Model):
 #     Company(name="Nafis"),
 # ])
 
-# Paper.objects.bulk_create([
-#     print(PaperType.objects.get(name='KLP'))
-#
-# ])
+
