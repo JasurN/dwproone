@@ -4,6 +4,9 @@ from django.db import models
 # TODO: At created at field
 
 # Company main model
+from django.utils.timezone import now
+
+
 class Company(models.Model):
     name = models.CharField(help_text="company name", max_length=150)
 
@@ -72,6 +75,7 @@ class PaperConsumption(models.Model):
         return self.paper.company.name + " : " + str(self.paper_consumed)
 
 
+# TODO: delete blank true when go Production
 # model for Paper incoming
 class PaperIncoming(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
@@ -79,6 +83,8 @@ class PaperIncoming(models.Model):
                               default=1)
     paper_income = models.PositiveIntegerField(help_text="income amount of paper",
                                                default=0)
+
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.paper.company.name + " : " + str(self.paper_income)
@@ -91,6 +97,7 @@ class PaperIncomeRemainingFromProduction(models.Model):
                               default=1)
     paper_income_production = models.PositiveIntegerField(help_text="income amount of paper from production",
                                                           default=0)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.paper.company.name + " : " + str(self.paper_income_production)
