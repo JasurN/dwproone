@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from .models import Paper, PaperConsumption, PaperIncoming, PaperIncomeRemainingFromProduction
 from .serializers import PaperSerializer
 from rest_framework import status
@@ -7,7 +6,7 @@ from rest_framework.response import Response
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return Response("Hello, world. You're at the polls index.")
 
 
 """Make paper consumption from request"""
