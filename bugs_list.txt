@@ -1,7 +1,6 @@
 This file contains information about all system bugs.
 Format is (Name of the bug, description, when you caught the bag)
 
-
 Example:
-0.
-1.
+0. reformat paper table into to paper amount and paper
+1. reformat django rest with better tutorials

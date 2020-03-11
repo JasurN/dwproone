@@ -4,6 +4,5 @@ from . import views
 app_name = 'dwproone_backend'
 
 urlpatterns = [
-    # ex: /polls/
-    path('', views.index),
+    path('', views.papers_list),
 ]

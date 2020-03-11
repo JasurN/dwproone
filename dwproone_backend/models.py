@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# TODO: At created at field
+
 # Company main model
 class Company(models.Model):
     name = models.CharField(help_text="company name", max_length=150)
@@ -49,10 +51,12 @@ class Paper(models.Model):
     paper_amount_remained_from_last_month = models.PositiveIntegerField(
         help_text="amount of paper remained from last month")
 
-    def __str__(self):
-        """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
-        return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
-            self.grammage.grammage) + " : amount = " + str(self.paper_amount)
+    class Meta:
+        ordering = ['id']
+    # def __str__(self):
+    #     """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
+    #     return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
+    #         self.grammage.grammage) + " : paper_amount = " + str(self.paper_amount)
 
 
 # model for Paper consumption
@@ -62,6 +66,7 @@ class PaperConsumption(models.Model):
                               default=1)
     paper_consumed = models.PositiveIntegerField(help_text="consumed amount of paper",
                                                  default=0)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.paper.company.name + " : " + str(self.paper_consumed)
@@ -74,6 +79,7 @@ class PaperIncoming(models.Model):
                               default=1)
     paper_income = models.PositiveIntegerField(help_text="income amount of paper",
                                                default=0)
+
     def __str__(self):
         return self.paper.company.name + " : " + str(self.paper_income)
 
@@ -153,8 +159,6 @@ class Ink_incoming(models.Model):
     amount = models.PositiveIntegerField(help_text="")
     measurement_id = models.ForeignKey(Measure_unit, on_delete=models.CASCADE,
                                        help_text="")
-
-
 
     # PaperType.objects.bulk_create([
     #     PaperType(name="KLB", code="K", description="cellulose"),
