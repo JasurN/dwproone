@@ -1,0 +1,19 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Environment="DJANGO_SETTINGS_MODULE="
+Environment="SECRET_KEY=''"
+Environment="db_password=''"
+User=dwproone
+Group=www-data
+WorkingDirectory=/home/dwproone/dwproone_backend/dwproone
+ExecStart=/home/dwproone/dwproone_backend/env_dwproone/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          dwproone.wsgi:application
+[Install]
+WantedBy=multi-user.target
