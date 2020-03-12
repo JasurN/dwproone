@@ -1,7 +1,7 @@
 from .base import *
 
 ALLOWED_HOSTS = ['localhost', '91.203.175.150']
-DEBUG = False
+DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
