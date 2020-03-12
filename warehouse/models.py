@@ -1,21 +1,19 @@
 from django.db import models
 
 
-# TODO: At created at field
-
-# Company main model
-from django.utils.timezone import now
+class Customer_Company(models.Model):
+    name = models.CharField(help_text="customer company name", max_length=150)
 
 
-class Company(models.Model):
-    name = models.CharField(help_text="company name", max_length=150)
+class Raw_Material_Producer_Company(models.Model):
+    name = models.CharField(help_text="raw material producer company name", max_length=150)
 
     def __str__(self):
         return self.name
 
 
 # Paper type model
-class PaperType(models.Model):
+class Paper_Type(models.Model):
     name = models.CharField(help_text="paper type name eg: CMP, KLB", max_length=20)
     code = models.CharField(help_text="paper type code eg: K, S, N or Ks", max_length=10)
     description = models.CharField(help_text="paper type description eg: corrugated paper, cellulose", max_length=100)
@@ -25,7 +23,7 @@ class PaperType(models.Model):
 
 
 # Paper format model
-class PaperFormat(models.Model):
+class Paper_Format(models.Model):
     format = models.PositiveSmallIntegerField(help_text="format of paper")
 
     def __str__(self):
@@ -33,7 +31,7 @@ class PaperFormat(models.Model):
 
 
 # Paper Grammage model
-class PaperGrammage(models.Model):
+class Paper_Grammage(models.Model):
     grammage = models.PositiveSmallIntegerField(help_text="grammage of paper")
 
     def __str__(self):
@@ -42,13 +40,13 @@ class PaperGrammage(models.Model):
 
 # Main model for Paper information
 class Paper(models.Model):
-    paper_type = models.ForeignKey(PaperType, on_delete=models.CASCADE,
+    paper_type = models.ForeignKey(Paper_Type, on_delete=models.CASCADE,
                                    help_text="paper type: KLB, CMP")
-    grammage = models.ForeignKey(PaperGrammage, on_delete=models.CASCADE,
+    grammage = models.ForeignKey(Paper_Grammage, on_delete=models.CASCADE,
                                  help_text=" paper grammage: 120-145")
-    paper_format = models.ForeignKey(PaperFormat, on_delete=models.CASCADE,
+    paper_format = models.ForeignKey(Paper_Format, on_delete=models.CASCADE,
                                      help_text="paper format: 800-1450")
-    company = models.ForeignKey(Company, on_delete=models.CASCADE,
+    company = models.ForeignKey(Raw_Material_Producer_Company, on_delete=models.CASCADE,
                                 help_text="company produced which paper ")
     paper_amount = models.PositiveIntegerField(help_text="current amount of paper")
     paper_amount_remained_from_last_month = models.PositiveIntegerField(
@@ -63,7 +61,7 @@ class Paper(models.Model):
 
 
 # model for Paper consumption
-class PaperConsumption(models.Model):
+class Paper_Consumption(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
                               help_text="Paper that is Consumed",
                               default=1)
@@ -77,7 +75,7 @@ class PaperConsumption(models.Model):
 
 # TODO: delete blank true when go Production
 # model for Paper incoming
-class PaperIncoming(models.Model):
+class Paper_Incoming(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
                               help_text="Paper that is Income",
                               default=1)
@@ -91,7 +89,7 @@ class PaperIncoming(models.Model):
 
 
 # model for Paper incoming from production. left from production
-class PaperIncomeRemainingFromProduction(models.Model):
+class Paper_Income_Remaining_From_Production(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
                               help_text="Paper that is Income from production",
                               default=1)
@@ -167,41 +165,41 @@ class Ink_incoming(models.Model):
     measurement_id = models.ForeignKey(Measure_unit, on_delete=models.CASCADE,
                                        help_text="")
 
-    # PaperType.objects.bulk_create([
-    #     PaperType(name="KLB", code="K", description="cellulose"),
-    #     PaperType(name="CMP", code="S", description="corrugated paper"),
+    # Paper_Type.objects.bulk_create([
+    #     Paper_Type(name="KLB", code="K", description="cellulose"),
+    #     Paper_Type(name="CMP", code="S", description="corrugated paper"),
     # ])
     #
-    # PaperFormat.objects.bulk_create([
-    #     PaperFormat(format=800),
-    #     PaperFormat(format=860),
-    #     PaperFormat(format=910),
-    #     PaperFormat(format=960),
-    #     PaperFormat(format=1000),
-    #     PaperFormat(format=1050),
-    #     PaperFormat(format=1100),
-    #     PaperFormat(format=1300),
-    #     PaperFormat(format=1350),
-    #     PaperFormat(format=1410),
-    #     PaperFormat(format=1450),
-    #     PaperFormat(format=1550),
+    # Paper_Format.objects.bulk_create([
+    #     Paper_Format(format=800),
+    #     Paper_Format(format=860),
+    #     Paper_Format(format=910),
+    #     Paper_Format(format=960),
+    #     Paper_Format(format=1000),
+    #     Paper_Format(format=1050),
+    #     Paper_Format(format=1100),
+    #     Paper_Format(format=1300),
+    #     Paper_Format(format=1350),
+    #     Paper_Format(format=1410),
+    #     Paper_Format(format=1450),
+    #     Paper_Format(format=1550),
     # ])
     #
-    # PaperGrammage.objects.bulk_create([
-    #     PaperGrammage(grammage=110),
-    #     PaperGrammage(grammage=115),
-    #     PaperGrammage(grammage=120),
-    #     PaperGrammage(grammage=125),
-    #     PaperGrammage(grammage=135),
-    #     PaperGrammage(grammage=140),
-    #     PaperGrammage(grammage=150),
+    # Paper_Grammage.objects.bulk_create([
+    #     Paper_Grammage(grammage=110),
+    #     Paper_Grammage(grammage=115),
+    #     Paper_Grammage(grammage=120),
+    #     Paper_Grammage(grammage=125),
+    #     Paper_Grammage(grammage=135),
+    #     Paper_Grammage(grammage=140),
+    #     Paper_Grammage(grammage=150),
     # ])
-
-    # Company.objects.bulk_create([
-    #     Company(name="Bratsk"),
-    #     Company(name="ENSO"),
-    #     Company(name="Namangan"),
-    #     Company(name="PTSBK"),
-    #     Company(name="BSQ"),
-    #     Company(name="Nafis"),
+    #
+    # Raw_Material_Producer_Company.objects.bulk_create([
+    #     Raw_Material_Producer_Company(name="Bratsk"),
+    #     Raw_Material_Producer_Company(name="ENSO"),
+    #     Raw_Material_Producer_Company(name="Namangan"),
+    #     Raw_Material_Producer_Company(name="PTSBK"),
+    #     Raw_Material_Producer_Company(name="BSQ"),
+    #     Raw_Material_Producer_Company(name="Nafis"),
     # ])

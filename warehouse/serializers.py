@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Paper, PaperIncoming, PaperConsumption
+from .models import Paper, Paper_Incoming, Paper_Consumption
 
 
 class PaperSerializer(serializers.ModelSerializer):

@@ -1,4 +1,4 @@
-from .models import Paper, PaperConsumption, PaperIncoming, PaperIncomeRemainingFromProduction
+from .models import Paper, Paper_Consumption, Paper_Incoming, Paper_Income_Remaining_From_Production
 from .serializers import PaperSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -11,11 +11,11 @@ def index(request):
 
 def paper_operation(pk, request_data):
     if request_data['operation_type'] == "consume":
-        return do_paper_consume(pk, request_data['consume_amount'])
+        return do_paper_consume(pk, request_data['amount'])
     elif request_data['operation_type'] == 'income':
-        return do_paper_income(pk, request_data['income_amount'])
+        return do_paper_income(pk, request_data['amount'])
     elif request_data['operation_type'] == 'income_from_production':
-        return do_paper_income_remained_from_production(pk, request_data['income_amount'])
+        return do_paper_income_remained_from_production(pk, request_data['amount'])
 
 
 """
@@ -27,7 +27,7 @@ def do_paper_consume(paper_id, paper_consume_amount):
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount -= int(paper_consume_amount)
     paperTempObj.save()
-    paperConsumeObj = PaperConsumption(paper_id=paper_id, paper_consumed=int(paper_consume_amount))
+    paperConsumeObj = Paper_Consumption(paper_id=paper_id, paper_consumed=int(paper_consume_amount))
     paperConsumeObj.save()
     return paperTempObj
 
@@ -39,7 +39,7 @@ def do_paper_income(paper_id, paper_income_amount):
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount += int(paper_income_amount)
     paperTempObj.save()
-    paperConsumeObj = PaperIncoming(paper_id=paper_id, paper_income=int(paper_income_amount))
+    paperConsumeObj = Paper_Incoming(paper_id=paper_id, paper_income=int(paper_income_amount))
     paperConsumeObj.save()
     return paperTempObj
 
@@ -51,7 +51,7 @@ def do_paper_income_remained_from_production(paper_id, paper_income_amount_from_
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount += int(paper_income_amount_from_production)
     paperTempObj.save()
-    paperConsumeObj = PaperIncomeRemainingFromProduction(paper_id=paper_id, paper_income_production=int(
+    paperConsumeObj = Paper_Income_Remaining_From_Production(paper_id=paper_id, paper_income_production=int(
         paper_income_amount_from_production))
     paperConsumeObj.save()
     return paperTempObj
