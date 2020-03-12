@@ -7,6 +7,9 @@ DATABASES = {
         'NAME': 'dwprooneprod',
         'USER': 'dwproone',
         'PASSWORD': os.environ['db_password'],
-        'PORT': '5432',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
