@@ -1,0 +1,13 @@
+server {
+    include mime.types;
+    listen 80;
+    server_name 46.101.192.185;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/dwproone/dwproone/dwproone/;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://46.101.192.185:8030;
+    }
+}
