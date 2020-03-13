@@ -2,15 +2,14 @@
 Description=gunicorn daemon
 Requires=gunicorn.socket
 After=network.target
-
 [Service]
-Environment="DJANGO_SETTINGS_MODULE="
-Environment="SECRET_KEY=''"
-Environment="db_password=''"
+Environment="DJANGO_SETTINGS_MODULE=dwproone.settings.prod"
+Environment="SECRET_KEY='p1qkc=stk9$aol^ziq67mdy-mn2!s$a538p$tlj@eht#vdz5#d'"
+Environment="db_password='DWproone1234567890@'"
 User=dwproone
 Group=www-data
-WorkingDirectory=/home/dwproone/dwproone_backend/dwproone
-ExecStart=/home/dwproone/dwproone_backend/env_dwproone/bin/gunicorn \
+WorkingDirectory=/home/dwproone/dwproone
+ExecStart=/home/dwproone/env_dw/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \

@@ -59,6 +59,8 @@ def do_paper_income_remained_from_production(paper_id, paper_income_amount_from_
 
 @api_view(['GET', 'POST'])
 def papers_list(request, format=None):
+    import os
+    Response(os.environ['db_password'])
     """
     List all papers
     """
