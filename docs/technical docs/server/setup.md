@@ -1,2 +1,2 @@
 1. In order to setup server please refer `https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04`
-2. When setting up gunicorn you should specify environment variables for gunicorn. You can check in dependency folder file 
+2. When setting up gunicorn you should specify environment variables for gunicorn.service You can check in dependency folder file 
