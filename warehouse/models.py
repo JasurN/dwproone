@@ -5,7 +5,7 @@ class Customer_Company(models.Model):
     name = models.CharField(help_text="customer company name", max_length=150)
 
 
-class Raw_Material_Producer_Company(models.Model):
+class Paper_Producer(models.Model):
     name = models.CharField(help_text="raw material producer company name", max_length=150)
 
     def __str__(self):
@@ -46,7 +46,7 @@ class Paper(models.Model):
                                  help_text=" paper grammage: 120-145")
     paper_format = models.ForeignKey(Paper_Format, on_delete=models.CASCADE,
                                      help_text="paper format: 800-1450")
-    company = models.ForeignKey(Raw_Material_Producer_Company, on_delete=models.CASCADE,
+    company = models.ForeignKey(Paper_Producer, on_delete=models.CASCADE,
                                 help_text="company produced which paper ")
     paper_amount = models.PositiveIntegerField(help_text="current amount of paper")
     paper_amount_remained_from_last_month = models.PositiveIntegerField(
@@ -69,11 +69,7 @@ class Paper_Consumption(models.Model):
                                                  default=0)
     created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.paper.company.name + " : " + str(self.paper_consumed)
 
-
-# TODO: delete blank true when go Production
 # model for Paper incoming
 class Paper_Incoming(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
@@ -83,9 +79,6 @@ class Paper_Incoming(models.Model):
                                                default=0)
 
     created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.paper.company.name + " : " + str(self.paper_income)
 
 
 # model for Paper incoming from production. left from production
@@ -97,16 +90,10 @@ class Paper_Income_Remaining_From_Production(models.Model):
                                                           default=0)
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
-    def __str__(self):
-        return self.paper.company.name + " : " + str(self.paper_income_production)
-
 
 # model for Measurement unit E.g kg, or lipaper_consumed = models.PositiveIntegerFieldtre
 class Measure_unit(models.Model):
     name = models.CharField(max_length=10, help_text="Measurement unit kg or litre or ton")
-
-    def __str__(self):
-        return self.name
 
 
 # TODO: write doc and __str__
