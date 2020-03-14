@@ -1,5 +1,5 @@
 #!/bin/bash
-source ~/dwproone/env_dw/bin/activate
-source ~/.bash_profile
+source ~/env_dw/bin/activate
+source ~/.bash_profiles
 NAME="${1?Error: no comamand given}"
 python ~/PycharmProjects/dwproone/manage.py $NAME
