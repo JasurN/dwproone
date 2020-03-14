@@ -1,4 +1,4 @@
-from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, Raw_Material_Producer_Company
+from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, Paper_Producer
 
 Paper_Type.objects.bulk_create([
     Paper_Type(name="KLB", code="K", description="cellulose"),
@@ -30,11 +30,11 @@ Paper_Grammage.objects.bulk_create([
     Paper_Grammage(grammage=150),
 ])
 
-Raw_Material_Producer_Company.objects.bulk_create([
-    Raw_Material_Producer_Company(name="Bratsk"),
-    Raw_Material_Producer_Company(name="ENSO"),
-    Raw_Material_Producer_Company(name="Namangan"),
-    Raw_Material_Producer_Company(name="PTSBK"),
-    Raw_Material_Producer_Company(name="BSQ"),
-    Raw_Material_Producer_Company(name="Nafis"),
+Paper_Producer.objects.bulk_create([
+    Paper_Producer(name="Bratsk"),
+    Paper_Producer(name="ENSO"),
+    Paper_Producer(name="Namangan"),
+    Paper_Producer(name="PTSBK"),
+    Paper_Producer(name="BSQ"),
+    Paper_Producer(name="Nafis"),
 ])
