@@ -1,10 +1,6 @@
 from django.db import models
 
 
-class Customer_Company(models.Model):
-    name = models.CharField(help_text="customer company name", max_length=150)
-
-
 class Paper_Producer(models.Model):
     name = models.CharField(help_text="raw material producer company name", max_length=150)
 
