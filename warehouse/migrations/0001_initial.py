@@ -5,12 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+
     initial = True
 
     dependencies = [
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='Customer_Company',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(help_text='customer company name', max_length=150)),
+            ],
+        ),
         migrations.CreateModel(
             name='Measure_unit',
             fields=[
@@ -23,8 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('paper_amount', models.PositiveIntegerField(help_text='current amount of paper')),
-                ('paper_amount_remained_from_last_month',
-                 models.PositiveIntegerField(help_text='amount of paper remained from last month')),
+                ('paper_amount_remained_from_last_month', models.PositiveIntegerField(help_text='amount of paper remained from last month')),
             ],
             options={
                 'ordering': ['id'],
@@ -50,8 +57,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text='paper type name eg: CMP, KLB', max_length=20)),
                 ('code', models.CharField(help_text='paper type code eg: K, S, N or Ks', max_length=10)),
-                ('description',
-                 models.CharField(help_text='paper type description eg: corrugated paper, cellulose', max_length=100)),
+                ('description', models.CharField(help_text='paper type description eg: corrugated paper, cellulose', max_length=100)),
             ],
         ),
         migrations.CreateModel(
@@ -76,8 +82,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text=' ', max_length=100)),
                 ('amount', models.PositiveIntegerField(help_text=' ')),
-                ('measurement_id', models.ForeignKey(help_text=' ', on_delete=django.db.models.deletion.CASCADE,
-                                                     to='warehouse.Measure_unit')),
+                ('measurement_id', models.ForeignKey(help_text=' ', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
         migrations.CreateModel(
@@ -86,8 +91,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text=' ', max_length=100)),
                 ('amount', models.PositiveIntegerField(help_text=' ')),
-                ('measurement_id', models.ForeignKey(help_text=' ', on_delete=django.db.models.deletion.CASCADE,
-                                                     to='warehouse.Measure_unit')),
+                ('measurement_id', models.ForeignKey(help_text=' ', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
         migrations.CreateModel(
@@ -96,11 +100,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text='Name of raw material vox, bura and etc', max_length=100)),
                 ('amount', models.PositiveIntegerField(help_text='current amount of Raw Material')),
-                ('amount_remained_from_last_month',
-                 models.PositiveIntegerField(help_text='remained from last month amount of Raw Material')),
-                ('measurement_id', models.ForeignKey(help_text='foreign key id to measurement',
-                                                     on_delete=django.db.models.deletion.CASCADE,
-                                                     to='warehouse.Measure_unit')),
+                ('amount_remained_from_last_month', models.PositiveIntegerField(help_text='remained from last month amount of Raw Material')),
+                ('measurement_id', models.ForeignKey(help_text='foreign key id to measurement', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
         migrations.CreateModel(
@@ -109,19 +110,16 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('paper_income', models.PositiveIntegerField(default=0, help_text='income amount of paper')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('paper', models.ForeignKey(default=1, help_text='Paper that is Income',
-                                            on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
+                ('paper', models.ForeignKey(default=1, help_text='Paper that is Income', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
             ],
         ),
         migrations.CreateModel(
             name='Paper_Income_Remaining_From_Production',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('paper_income_production',
-                 models.PositiveIntegerField(default=0, help_text='income amount of paper from production')),
+                ('paper_income_production', models.PositiveIntegerField(default=0, help_text='income amount of paper from production')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('paper', models.ForeignKey(default=1, help_text='Paper that is Income from production',
-                                            on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
+                ('paper', models.ForeignKey(default=1, help_text='Paper that is Income from production', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
             ],
         ),
         migrations.CreateModel(
@@ -130,34 +128,28 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('paper_consumed', models.PositiveIntegerField(default=0, help_text='consumed amount of paper')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('paper', models.ForeignKey(default=1, help_text='Paper that is Consumed',
-                                            on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
+                ('paper', models.ForeignKey(default=1, help_text='Paper that is Consumed', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper')),
             ],
         ),
         migrations.AddField(
             model_name='paper',
             name='company',
-            field=models.ForeignKey(help_text='company produced which paper ',
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    to='warehouse.Paper_Producer'),
+            field=models.ForeignKey(help_text='company produced which paper ', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Raw_Material_Producer_Company'),
         ),
         migrations.AddField(
             model_name='paper',
             name='grammage',
-            field=models.ForeignKey(help_text=' paper grammage: 120-145', on_delete=django.db.models.deletion.CASCADE,
-                                    to='warehouse.Paper_Grammage'),
+            field=models.ForeignKey(help_text=' paper grammage: 120-145', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper_Grammage'),
         ),
         migrations.AddField(
             model_name='paper',
             name='paper_format',
-            field=models.ForeignKey(help_text='paper format: 800-1450', on_delete=django.db.models.deletion.CASCADE,
-                                    to='warehouse.Paper_Format'),
+            field=models.ForeignKey(help_text='paper format: 800-1450', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper_Format'),
         ),
         migrations.AddField(
             model_name='paper',
             name='paper_type',
-            field=models.ForeignKey(help_text='paper type: KLB, CMP', on_delete=django.db.models.deletion.CASCADE,
-                                    to='warehouse.Paper_Type'),
+            field=models.ForeignKey(help_text='paper type: KLB, CMP', on_delete=django.db.models.deletion.CASCADE, to='warehouse.Paper_Type'),
         ),
         migrations.CreateModel(
             name='Ink_incoming',
@@ -165,8 +157,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('amount', models.PositiveIntegerField()),
-                ('measurement_id',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
+                ('measurement_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
         migrations.CreateModel(
@@ -175,8 +166,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('amount', models.PositiveIntegerField()),
-                ('measurement_id',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
+                ('measurement_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
         migrations.CreateModel(
@@ -186,8 +176,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('amount', models.PositiveIntegerField()),
                 ('amount_remained_from_last_month', models.PositiveIntegerField()),
-                ('measurement_id',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
+                ('measurement_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='warehouse.Measure_unit')),
             ],
         ),
     ]

@@ -2,4 +2,4 @@
 source ~/env_dw/bin/activate
 source ~/.bash_profiles
 NAME="${1?Error: no comamand given}"
-python ~/PycharmProjects/dwproone/manage.py $NAME
+python ~/dwproone/manage.py $NAME
