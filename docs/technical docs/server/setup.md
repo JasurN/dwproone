@@ -3,3 +3,5 @@
 3. Important don't create socket or service for gunicorn as described in step 1
 4. Set up your supervisor config as described in dwproone.conf which is located in this directory
 5. Nginx config file is also located in this directory for future setup
+6. If you host your frontend and backend in one hosting, then you need to use exactly these files 
+`dwproone_nginx_for_backend` and `dwproone_nginx_for_frontend`
