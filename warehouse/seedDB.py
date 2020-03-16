@@ -1,4 +1,4 @@
-from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, Paper_Producer
+from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, Paper_Producer, Paper
 
 Paper_Type.objects.bulk_create([
     Paper_Type(name="KLB", code="K", description="cellulose"),

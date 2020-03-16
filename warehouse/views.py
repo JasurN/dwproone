@@ -1,5 +1,5 @@
 from .models import Paper, Paper_Consumption, Paper_Incoming, Paper_Income_Remaining_From_Production
-from .serializers import PaperSerializer
+from .serializers import PaperSerializer, Paper_Consumption_Serializer
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,6 +7,25 @@ from rest_framework.response import Response
 
 def index(request):
     return Response("Hello, world. You're at the polls index.")
+
+
+@api_view(['GET', 'POST'])
+def papers_list(request, format=None):
+    """
+    List all papers
+    """
+    if request.method == 'GET':
+        paper = Paper.objects.all()
+        serializer = PaperSerializer(paper, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        return Response("Hello from server")
+    #     serializer = PaperSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def paper_operation(pk, request_data):
@@ -57,25 +76,6 @@ def do_paper_income_remained_from_production(paper_id, paper_income_amount_from_
     return paperTempObj
 
 
-@api_view(['GET', 'POST'])
-def papers_list(request, format=None):
-    """
-    List all papers
-    """
-    if request.method == 'GET':
-        paper = Paper.objects.all()
-        serializer = PaperSerializer(paper, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        return Response("Hello from server")
-    #     serializer = PaperSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def paper_operations(request, pk):
     """
@@ -105,3 +105,11 @@ def paper_operations(request, pk):
     # elif request.method == 'DELETE':
     #     snippet.delete()
     #     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def get_all_paper_consumption(request):
+    if request.method == 'GET':
+        paper_consumption = Paper_Consumption.objects.all()
+        serializer = Paper_Consumption_Serializer(paper_consumption, many=True)
+        return Response(serializer.data)
