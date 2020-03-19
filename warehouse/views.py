@@ -1,5 +1,7 @@
-from .models import Paper, Paper_Consumption, Paper_Incoming, Paper_Income_Remaining_From_Production
-from .serializers import PaperSerializer, Paper_Consumption_Serializer
+from .models import Paper, Paper_Consumption, Paper_Incoming, \
+    Paper_Income_Remaining_From_Production
+from .serializers import PaperSerializer, Paper_Consumption_Serializer, \
+    Paper_Income_Serializer
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -102,4 +104,12 @@ def get_all_paper_consumption(request):
     if request.method == 'GET':
         paper_consumption = Paper_Consumption.objects.all()
         serializer = Paper_Consumption_Serializer(paper_consumption, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_paper_income(request):
+    if request.method == 'GET':
+        paper_income = Paper_Incoming.objects.all()
+        serializer = Paper_Income_Serializer(paper_income, many=True)
         return Response(serializer.data)

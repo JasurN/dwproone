@@ -34,3 +34,17 @@ class Paper_Consumption_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Paper_Consumption
         fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'paper_consumed', 'created']
+
+
+class Paper_Income_Serializer(serializers.ModelSerializer):
+    """
+    TODO: Write doc
+    """
+    producer_company = serializers.CharField(source='paper.company.name')
+    type = serializers.CharField(source='paper.paper_type.name')
+    grammage = serializers.CharField(source='paper.grammage.grammage')
+    format = serializers.CharField(source='paper.paper_format.format')
+
+    class Meta:
+        model = Paper_Incoming
+        fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'paper_income', 'created']
