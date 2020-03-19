@@ -95,16 +95,6 @@ def paper_operations(request, pk):
         """
         paperTempObj = paper_operation(pk, request.data)
         return Response(PaperSerializer(paperTempObj).data)
-    # elif request.method == 'PUT':
-    #     serializer = SnippetSerializer(snippet, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
-    # elif request.method == 'DELETE':
-    #     snippet.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])
