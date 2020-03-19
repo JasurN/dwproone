@@ -61,8 +61,8 @@ class Paper_Consumption(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
                               help_text="Paper that is Consumed",
                               default=1)
-    paper_consumed = models.PositiveIntegerField(help_text="consumed amount of paper",
-                                                 default=0)
+    amount = models.PositiveIntegerField(help_text="consumed amount of paper",
+                                         default=0)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -71,8 +71,8 @@ class Paper_Incoming(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE,
                               help_text="Paper that is Income",
                               default=1)
-    paper_income = models.PositiveIntegerField(help_text="income amount of paper",
-                                               default=0)
+    amount = models.PositiveIntegerField(help_text="income amount of paper",
+                                         default=0)
 
     created = models.DateTimeField(auto_now_add=True)
 

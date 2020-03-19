@@ -33,7 +33,7 @@ class Paper_Consumption_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Paper_Consumption
-        fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'paper_consumed', 'created']
+        fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'amount', 'created']
 
 
 class Paper_Income_Serializer(serializers.ModelSerializer):
@@ -47,4 +47,4 @@ class Paper_Income_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Paper_Incoming
-        fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'paper_income', 'created']
+        fields = ['id', 'paper_id', 'producer_company', 'format', 'type', 'grammage', 'amount', 'created']
