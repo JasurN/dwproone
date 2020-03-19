@@ -48,7 +48,7 @@ def do_paper_consume(paper_id, paper_consume_amount):
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount -= int(paper_consume_amount)
     paperTempObj.save()
-    paperConsumeObj = Paper_Consumption(paper_id=paper_id, paper_consumed=int(paper_consume_amount))
+    paperConsumeObj = Paper_Consumption(paper_id=paper_id, amount=int(paper_consume_amount))
     paperConsumeObj.save()
     return paperTempObj
 
@@ -60,7 +60,7 @@ def do_paper_income(paper_id, paper_income_amount):
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount += int(paper_income_amount)
     paperTempObj.save()
-    paperConsumeObj = Paper_Incoming(paper_id=paper_id, paper_income=int(paper_income_amount))
+    paperConsumeObj = Paper_Incoming(paper_id=paper_id, amount=int(paper_income_amount))
     paperConsumeObj.save()
     return paperTempObj
 
@@ -72,7 +72,7 @@ def do_paper_income_remained_from_production(paper_id, paper_income_amount_from_
     paperTempObj = Paper.objects.get(pk=paper_id)
     paperTempObj.paper_amount += int(paper_income_amount_from_production)
     paperTempObj.save()
-    paperConsumeObj = Paper_Income_Remaining_From_Production(paper_id=paper_id, paper_income_production=int(
+    paperConsumeObj = Paper_Income_Remaining_From_Production(paper_id=paper_id, amount=int(
         paper_income_amount_from_production))
     paperConsumeObj.save()
     return paperTempObj
