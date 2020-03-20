@@ -1,4 +1,5 @@
-from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, Paper_Producer, Paper
+from warehouse.models import Paper_Type, Paper_Format, Paper_Grammage, \
+    Paper_Producer, Measure_unit
 
 Paper_Type.objects.bulk_create([
     Paper_Type(name="KLB", code="K", description="cellulose"),
@@ -37,4 +38,10 @@ Paper_Producer.objects.bulk_create([
     Paper_Producer(name="PTSBK"),
     Paper_Producer(name="BSQ"),
     Paper_Producer(name="Nafis"),
+])
+
+Measure_unit.objects.bulk_create([
+    Measure_unit(name='kilograms'),
+    Measure_unit(name='litres'),
+    Measure_unit(name='items')
 ])

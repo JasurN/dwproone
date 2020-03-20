@@ -104,22 +104,22 @@ class Raw_material(models.Model):
 
 # TODO: write doc and __str__
 class Raw_material_consumption(models.Model):
-    name = models.CharField(max_length=100, help_text=" ")
-    amount = models.PositiveIntegerField(help_text=" ")
+    name = models.CharField(max_length=100, help_text="Raw material consumption")
+    amount = models.PositiveIntegerField(help_text="Amount of raw material consumption")
     measurement_id = models.ForeignKey(Measure_unit, on_delete=models.CASCADE, help_text=" ")
 
 
 # TODO: write doc and __str__
 class Raw_material_incoming(models.Model):
-    name = models.CharField(max_length=100, help_text=" ")
-    amount = models.PositiveIntegerField(help_text=" ")
+    name = models.CharField(max_length=100, help_text="Raw material income")
+    amount = models.PositiveIntegerField(help_text="Amount of raw material income")
     amount_remained_from_last_month = models.PositiveIntegerField(help_text=" ")
 
 
 # TODO: write doc and __str__
 class Raw_material_remaining_from_production(models.Model):
-    name = models.CharField(max_length=100, help_text=" ")
-    amount = models.PositiveIntegerField(help_text=" ")
+    name = models.CharField(max_length=100, help_text="Raw material income from production")
+    amount = models.PositiveIntegerField(help_text="Amount of raw material income from production")
     measurement_id = models.ForeignKey(Measure_unit, on_delete=models.CASCADE, help_text=" ")
 
 
