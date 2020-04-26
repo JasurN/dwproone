@@ -1,4 +1,4 @@
-1. Backend:
-    a. backend developing using django and restful api
-2. Frontend:
-    a. developing with html, css, bootstrap4, jQuery and React
+1. Backend Stack:
+    1. Django, DRF
+2. Frontend Stack:
+    1. React, redux, bootstrap 4
