@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'warehouse',
     'sales',
+    'frontend',
     'corsheaders'
 ]
 
@@ -48,8 +49,10 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'dwproone.middleware.dev_cors_middleware'
 ]
+
 
 ROOT_URLCONF = 'dwproone.urls'
 
@@ -120,6 +123,13 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend')
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
