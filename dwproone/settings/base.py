@@ -35,10 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'knox',
     'warehouse',
     'sales',
     'frontend',
+    'knox',
 
 ]
 
@@ -56,9 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'dwproone.middleware.dev_cors_middleware'
 ]
-
 
 ROOT_URLCONF = 'dwproone.urls'
 

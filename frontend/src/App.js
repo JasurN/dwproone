@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import store from "./store";
 
 import Header from "./components/layout/Header";
-import Dashboard from "./components/leads/Dashboard";
+import Main from "./components/leads/Main";
 import Alerts from "./components/layout/Alerts";
 import Login from "./components/accounts/Login";
 import Register from "./components/accounts/Register";
@@ -33,13 +33,15 @@ export default class App extends Component {
                         <Fragment>
                             <Header/>
                             <Alerts/>
-                            <div className="container">
+
                                 <Switch>
-                                    <PrivateRoute exact path="/" component={Dashboard}/>
+                                    <PrivateRoute exact path="/" component={Main}/>
+
                                     <Route exact path="/register" component={Register}/>
                                     <Route exact path="/login" component={Login}/>
+
                                 </Switch>
-                            </div>
+
                         </Fragment>
                     </Router>
                 </AlertProvider>
