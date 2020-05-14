@@ -5,4 +5,4 @@ cd ./frontend
 npm install
 npm run build
 python ~/dwproone/manage.py collectstatic --noinput
-sudo supervisorctl restart dwproone
+sudo systemctl restart gunicorn
