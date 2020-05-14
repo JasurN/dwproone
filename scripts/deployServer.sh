@@ -1,8 +1,8 @@
 #!/bin/bash
 source ~/env_dw/bin/activate
 source ~/.bash_profiles
-python ~/dwproone/manage.py collectstatic
-sudo supervisorctl restart dwproone
-cd ../frontend
+cd ./frontend
 npm install
 npm run build
+python ~/dwproone/manage.py collectstatic --noinput
+sudo supervisorctl restart dwproone

@@ -1,9 +1,0 @@
-server {
-  listen 80;
-  root /var/www/dwfront;
-  index index.html;
-  server_name 46.101.192.185;
-  location / {
-    try_files $uri $uri/ =404;
-  }
-}
