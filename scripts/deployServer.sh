@@ -1,6 +1,6 @@
 #!/bin/bash
 source ~/env_dw/bin/activate
-source ~/.bash_profiles
+source ~/.bash_profile
 cd ./frontend
 npm install
 npm run build
