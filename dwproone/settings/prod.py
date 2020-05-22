@@ -1,6 +1,7 @@
 from .base import *
 
 ALLOWED_HOSTS = ['localhost', 'dwproone.uz', 'www.dwproone.uz']
+SECRET_KEY = os.environ['SECRET_KEY']  # gets from gunicorn service
 DEBUG = False
 DATABASES = {
     'default': {
