@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'warehouse',
     'sales',
     'frontend',
+    'frontend2',
     'knox',
 
 ]
@@ -128,7 +129,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend')
+REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend2')
 
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
