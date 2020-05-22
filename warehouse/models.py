@@ -115,7 +115,7 @@ class Roll_Return(models.Model):
 #                                        help_text="")
 #
 #
-# # TODO: write doc and __str__
+
 # class Ink_consumption(models.Model):
 #     name = models.CharField(max_length=100, help_text="")
 #     amount = models.PositiveIntegerField(help_text="")
@@ -123,7 +123,7 @@ class Roll_Return(models.Model):
 #                                        help_text="")
 #
 #
-# # TODO: write doc and __str__
+
 # class Ink_incoming(models.Model):
 #     name = models.CharField(max_length=100, help_text="")
 #     amount = models.PositiveIntegerField(help_text="")

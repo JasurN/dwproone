@@ -23,9 +23,12 @@ class PaperSerializer(serializers.ModelSerializer):
                   'paper_format', 'grammage']
 
 
+class RollSerializer(serializers.ModelSerializer):
+    pass
+
 # class Paper_Consumption_Serializer(serializers.ModelSerializer):
 #     """
-#     TODO: Write doc
+
 #     """
 #     producer_company = serializers.CharField(source='paper.company.name')
 #     type = serializers.CharField(source='paper.paper_type.name')
@@ -40,7 +43,7 @@ class PaperSerializer(serializers.ModelSerializer):
 #
 # class Paper_Income_Serializer(serializers.ModelSerializer):
 #     """
-#     TODO: Write doc
+
 #     """
 #     producer_company = serializers.CharField(source='paper.company.name')
 #     type = serializers.CharField(source='paper.paper_type.name')

@@ -1,27 +1,16 @@
-from .models import Paper
-from .serializers import PaperSerializer
 from rest_framework import status
+from rest_framework.views import APIView
+from .models import Paper
+from .serializers import PaperSerializer, RollSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-def index(request):
-    return Response("Hello, world. You're at the polls index.")
+class RollView(APIView):
+    serializer_class = RollSerializer
 
-
-@api_view(['GET', 'POST'])
-def papers_list(request, format=None):
-    """
-    List all papers
-    """
-    if request.method == 'GET':
-        paper = Paper.objects.all()
-        serializer = PaperSerializer(paper, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        return Response("Hello from server")
-
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
 #
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":
@@ -86,7 +75,6 @@ def papers_list(request, format=None):
 #         return Response("GET PAPER/PK")
 #     elif request.method == 'POST':
 #         """
-#         TODO: WRITE DOC
 #         """
 #         paperTempObj = paper_operation(pk, request.data)
 #         return Response(PaperSerializer(paperTempObj).data)
