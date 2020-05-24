@@ -47,6 +47,11 @@ class Paper(models.Model):
     class Meta:
         ordering = ['id']
 
+    def __str__(self):
+        """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
+        return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
+            self.grammage.grammage)
+
 
 class Roll(models.Model):
     roll_id = models.CharField(max_length=120)
@@ -54,6 +59,14 @@ class Roll(models.Model):
     initial_weight = models.PositiveIntegerField()
     current_weight = models.PositiveIntegerField()
     income_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
+        return self.paper.company.name + " : " + self.paper.paper_type.name + " format: " + str(
+            self.paper.paper_format.format) + " grammage: " + str(
+            self.paper.grammage.grammage) + " current weight: " + str(
+            self.current_weight) + " initial weight: " + str(self.initial_weight) + " income date: " + str(
+            self.income_date)
 
 
 class Roll_Consumption(models.Model):
@@ -72,7 +85,6 @@ class Roll_Return(models.Model):
     roll = models.ForeignKey(Roll, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
-
 
 # class Measure_unit(models.Model):
 #     name = models.CharField(max_length=10, help_text="Measurement unit kg or litre or ton")
