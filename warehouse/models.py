@@ -52,6 +52,26 @@ class Paper(models.Model):
         return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
             self.grammage.grammage)
 
+    def get_company_name(self):
+        return self.company.name
+
+    get_company_name.short_description = "Paper Company"
+
+    def get_paper_type(self):
+        return self.paper_type.name
+
+    get_paper_type.short_description = "Type"
+
+    def get_paper_format(self):
+        return str(self.paper_format.format)
+
+    get_paper_format.short_description = "Format"
+
+    def get_paper_grammage(self):
+        return str(self.grammage.grammage)
+
+    get_paper_grammage.short_description = "Grammage"
+
 
 class Roll(models.Model):
     roll_id = models.CharField(max_length=120)
@@ -67,6 +87,26 @@ class Roll(models.Model):
             self.paper.grammage.grammage) + " current weight: " + str(
             self.current_weight) + " initial weight: " + str(self.initial_weight) + " income date: " + str(
             self.income_date)
+
+    def get_company_name(self):
+        return self.paper.company.name
+
+    get_company_name.short_description = "Paper Company"
+
+    def get_paper_type(self):
+        return self.paper.paper_type.name
+
+    get_paper_type.short_description = "Type"
+
+    def get_paper_format(self):
+        return str(self.paper.paper_format.format)
+
+    get_paper_format.short_description = "Format"
+
+    def get_paper_grammage(self):
+        return str(self.paper.grammage.grammage)
+
+    get_paper_grammage.short_description = "Grammage"
 
 
 class Roll_Consumption(models.Model):
