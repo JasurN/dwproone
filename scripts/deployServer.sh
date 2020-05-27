@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ./frontend2
-yarn install
-yarn build
+npm install
+npm run build
 source ~/env_dw/bin/activate
 source ~/.bash_profile
 python ~/dwproone/manage.py makemigrations
