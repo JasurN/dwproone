@@ -20,11 +20,14 @@ class Paper_Producer_Admin(admin.ModelAdmin):
 admin.site.register(Paper_Producer, Paper_Producer_Admin)
 
 
+class RollInline(admin.TabularInline):
+    model = Roll
+
+
+@admin.register(Paper)
 class Paper_Admin(admin.ModelAdmin):
     list_display = ('get_company_name', 'get_paper_type', 'get_paper_format', 'get_paper_grammage')
-
-
-admin.site.register(Paper, Paper_Admin)
+    inlines = [RollInline]
 
 
 class Roll_Admin(admin.ModelAdmin):
@@ -36,5 +39,3 @@ admin.site.register(Roll, Roll_Admin)
 admin.site.register(Roll_Consumption)
 admin.site.register(Roll_Incoming)
 admin.site.register(Roll_Return)
-
-# Register your models here.
