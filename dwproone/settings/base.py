@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'warehouse',
     'sales',
@@ -135,8 +136,6 @@ STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000',
+    'http://localhost',
 )
