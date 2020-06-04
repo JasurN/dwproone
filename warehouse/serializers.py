@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Paper
+from .models import Paper, Roll
 
 
 class PaperSerializer(serializers.ModelSerializer):
@@ -24,7 +24,9 @@ class PaperSerializer(serializers.ModelSerializer):
 
 
 class RollSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Roll
+        fields = '__all__'
 
 # class Paper_Consumption_Serializer(serializers.ModelSerializer):
 #     """

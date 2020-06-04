@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.views import APIView
-from .models import Paper
+from .models import Paper, Roll
 from .serializers import PaperSerializer, RollSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,7 +10,9 @@ class RollView(APIView):
     serializer_class = RollSerializer
 
     def get(self, request):
-        return Response(status=status.HTTP_200_OK)
+        rolls = Roll.objects.all()
+        rolls_serializer = RollSerializer(rolls, many=True)
+        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
 #
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":
