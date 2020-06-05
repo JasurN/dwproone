@@ -1,19 +1,24 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
-from .models import Paper, Roll
-from .serializers import PaperSerializer, RollSerializer
-from rest_framework.decorators import api_view
+from .react_admin_utilities import ReactAdminPagination, ReactAdminFilterBackend
 from rest_framework.response import Response
 
+from .models import Roll
+from .serializers import RollSerializer
 
-class RollView(APIView):
+
+class RollView(generics.ListAPIView):
+    queryset = Roll.objects.all()
     serializer_class = RollSerializer
+    pagination_class = ReactAdminPagination
+    # filter_backends = ReactAdminFilterBackend
 
-    def get(self, request):
-        rolls = Roll.objects.all()
-        rolls_serializer = RollSerializer(rolls, many=True)
-        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
-#
+
+#     def get(self, request):
+#         rolls = Roll.objects.all()
+#         rolls_serializer = RollSerializer(rolls, many=True)
+#         return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
+# #
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":
 #         return make_paper_consume(pk, request_data['amount'])

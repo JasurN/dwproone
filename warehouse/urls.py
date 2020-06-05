@@ -4,5 +4,5 @@ from .views import RollView
 app_name = 'warehouse'
 
 urlpatterns = [
-    path('rolls', RollView.as_view()),
+    path('rolls/', RollView.as_view()),
 ]

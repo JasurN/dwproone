@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'django_filters',
     'rest_framework',
     'warehouse',
     'sales',
@@ -46,7 +47,10 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':
-        ('knox.auth.TokenAuthentication',)
+        ('knox.auth.TokenAuthentication',),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
 }
 
 MIDDLEWARE = [
@@ -122,7 +126,7 @@ USE_I18N = True
 
 USE_L10N = False
 
-USE_TZ = False
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -137,5 +141,5 @@ STATICFILES_DIRS = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost',
+    'http://localhost:3000',
 )
