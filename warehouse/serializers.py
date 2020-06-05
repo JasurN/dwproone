@@ -27,6 +27,7 @@ class RollSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roll
         fields = '__all__'
+        depth = 2
 
 # class Paper_Consumption_Serializer(serializers.ModelSerializer):
 #     """

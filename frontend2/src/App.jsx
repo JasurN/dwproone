@@ -13,7 +13,11 @@ import {Admin, Resource, ListGuesser} from 'react-admin';
 // import authProvider from './authProvider';
 import drfProvider from './dataprovider/index'
 
-const dataProvider = drfProvider('https://localhost/api');
+let apiUrl = 'http://localhost:8000/api';
+if (process.env.NODE_ENV === 'production') {
+    apiUrl = 'https://dwproone.uz/api'
+}
+const dataProvider = drfProvider(apiUrl);
 const App = () => (
    <Admin dataProvider={dataProvider}>
       <Resource name="warehouse/rolls" list={ListGuesser} />
