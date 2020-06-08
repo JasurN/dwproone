@@ -8,7 +8,7 @@ class Paper_Producer(models.Model):
 
     class Meta:
         ordering = ['name']
-        unique_together = ('name', 'short_name', )
+        unique_together = ('name', 'short_name',)
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Paper_Type(models.Model):
 
     class Meta:
         ordering = ['name']
-        unique_together = ('name', 'code', )
+        unique_together = ('name', 'code',)
 
     def __str__(self):
         return self.name + " : " + self.code + " : " + self.description
@@ -64,8 +64,8 @@ class Paper(models.Model):
 
     def __str__(self):
         """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
-        return self.company.name + " : " + self.paper_type.name + " : " + str(self.paper_format.format) + " : " + str(
-            self.grammage.grammage)
+        return f'{self.company.name} : {self.company.short_name} :  ' \
+               f'{self.paper_type.name}: {self.paper_format.format} : {self.grammage.grammage}'
 
     def get_company_name(self):
         return self.company.name
@@ -89,7 +89,7 @@ class Paper(models.Model):
 
 
 class Roll(models.Model):
-    roll_id = models.CharField(max_length=120)
+    roll_id = models.CharField(max_length=120, unique=True)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
     initial_weight = models.PositiveIntegerField()
     current_weight = models.PositiveIntegerField()
