@@ -1,17 +1,18 @@
-from rest_framework import status, generics
+from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 from .react_admin_utilities import ReactAdminPagination, ReactAdminFilterBackend
 from rest_framework.response import Response
 
-from .models import Roll
-from .serializers import RollSerializer
+from .models import Roll, Roll_Consumption
+from .serializers import RollSerializer, RollConsumptionSerializer
 
 
-class RollView(generics.ListAPIView):
+class RollsListView(generics.ListAPIView):
     queryset = Roll.objects.all()
     serializer_class = RollSerializer
     pagination_class = ReactAdminPagination
-    # filter_backends = ReactAdminFilterBackend
+    filter_backends = [ReactAdminFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
 
 
 class RollDetailView(APIView):
@@ -22,6 +23,13 @@ class RollDetailView(APIView):
         roll = Roll.objects.get(pk=roll_id)
         rolls_serializer = RollSerializer(roll)
         return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
+
+
+class RollsConsumptionListView(generics.ListAPIView):
+    queryset = Roll_Consumption.objects.all()
+    serializer_class = RollConsumptionSerializer
+    pagination_class = ReactAdminPagination
+
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)

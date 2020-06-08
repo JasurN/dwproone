@@ -2,25 +2,31 @@ from django.db import models
 
 
 class Paper_Producer(models.Model):
-    name = models.CharField(help_text="raw material producer company name", max_length=150)
+    name = models.CharField(help_text="raw material producer company name", max_length=150, unique=True)
     # Todo: delete null true when make migration from 0
-    short_name = models.CharField(max_length=50, null=True)
+    short_name = models.CharField(max_length=50, unique=True)
+
+    class Meta:
+        unique_together = ('name', 'short_name', )
 
     def __str__(self):
         return self.name
 
 
 class Paper_Type(models.Model):
-    name = models.CharField(help_text="paper type name eg: CMP, KLB", max_length=20)
-    code = models.CharField(help_text="paper type code eg: K, S, N or Ks", max_length=10)
+    name = models.CharField(help_text="paper type name eg: CMP, KLB", max_length=20, unique=True)
+    code = models.CharField(help_text="paper type code eg: K, S, N or Ks", max_length=10, unique=True)
     description = models.CharField(help_text="paper type description eg: corrugated paper, cellulose", max_length=100)
+
+    class Meta:
+        unique_together = ('name', 'code', )
 
     def __str__(self):
         return self.name + " : " + self.code + " : " + self.description
 
 
 class Paper_Format(models.Model):
-    format = models.PositiveSmallIntegerField(help_text="format of paper")
+    format = models.PositiveSmallIntegerField(help_text="format of paper", unique=True)
 
     def __str__(self):
         return str(self.format)
@@ -28,7 +34,7 @@ class Paper_Format(models.Model):
 
 # Paper Grammage model
 class Paper_Grammage(models.Model):
-    grammage = models.PositiveSmallIntegerField(help_text="grammage of paper")
+    grammage = models.PositiveSmallIntegerField(help_text="grammage of paper", unique=True)
 
     def __str__(self):
         return str(self.grammage)
@@ -46,6 +52,7 @@ class Paper(models.Model):
 
     class Meta:
         ordering = ['id']
+        unique_together = ('paper_type', 'grammage', 'paper_format', 'company',)
 
     def __str__(self):
         """self.company.name -> refers to Company model name (e.g: ENZO or NAMANGAN)"""
