@@ -2,6 +2,8 @@
 cd ./frontend2
 npm install
 npm run build
+mkdir -p production
+cp -r build/* production/
 source ~/env_dw/bin/activate
 source ~/.bash_profile
 cd ~/dwproone
