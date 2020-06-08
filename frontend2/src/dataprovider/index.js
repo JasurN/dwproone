@@ -39,7 +39,9 @@ const drfProvider = (apiUrl, httpClient=fetchUtils.fetchJson) => {
                 break;
             case GET_LIST: {
                 const { page, perPage } = params.pagination;
-                const { field, order } = params.sort;
+                const {  order } = params.sort;
+                let {field} = params.sort;
+                field = field.replace(/[.]/g, "__");
                 const { filter } = params;
                 const query = {
                     page,
