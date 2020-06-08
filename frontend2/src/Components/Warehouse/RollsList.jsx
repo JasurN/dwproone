@@ -1,9 +1,18 @@
 import React from "react";
-import {List, Datagrid, TextField, NumberField, DateField} from 'react-admin';
+import {List, Datagrid, TextField, NumberField, DateField, EditButton, Filter, TextInput, ReferenceInput, SelectInput} from 'react-admin';
+
+const RollsFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="search" alwaysOn />
+        {/*<ReferenceInput label="User" source="userId" reference="users" allowEmpty>*/}
+        {/*    <SelectInput optionText="name" />*/}
+        {/*</ReferenceInput>*/}
+    </Filter>
+);
 
 export const RollsList = props => (
-    <List {...props}>
-        <Datagrid rowClick="edit">
+    <List  filters={<RollsFilter/>} {...props}>
+        <Datagrid>
             {/*<TextField source="id"/>*/}
             <TextField source="roll_id"/>
             <NumberField source="initial_weight"/>
@@ -13,6 +22,7 @@ export const RollsList = props => (
             <TextField source="paper.grammage.grammage" label="Grammage"/>
             <TextField source="paper.paper_format.format" label="Format"/>
             <TextField source="paper.company.name" label="Company"/>
+            <EditButton />
         </Datagrid>
     </List>
 );

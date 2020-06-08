@@ -15,7 +15,9 @@ class RollsListView(generics.ListAPIView):
     serializer_class = RollSerializer
     pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter]
+                       RelatedOrderingFilter,
+                       filters.SearchFilter]
+    search_fields = ['roll_id', 'paper__paper_type__name', ]
     ordering_fields = '__all__'
 
 
