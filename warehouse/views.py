@@ -13,7 +13,8 @@ class RollView(generics.ListAPIView):
     pagination_class = ReactAdminPagination
     # filter_backends = ReactAdminFilterBackend
 
-
+class RollDetailView(generics.RetrieveAPIView):
+    pass
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)

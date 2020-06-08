@@ -1,17 +1,10 @@
 // in src/App.js
 import React from 'react';
 
-import {Admin, Resource, ListGuesser} from 'react-admin';
-// import {UserList} from "./users";
-// import jsonServerProvider from 'ra-data-json-server';
-// import {PostList} from "./PostList";
-// import {PostEdit} from "./PostEdit";
-// import {PostCreate} from "./PostCreate";
-// import PostIcon from '@material-ui/icons/Book';
-// import UserIcon from '@material-ui/icons/Group';
-// import Dashboard from "./Dashboard";
-// import authProvider from './authProvider';
+import {Admin, Resource} from 'react-admin';
+
 import drfProvider from './dataprovider/index'
+import {RollsList} from "./Components/Warehouse/RollsList";
 
 let apiUrl = 'http://localhost:8000/api';
 if (process.env.NODE_ENV === 'production') {
@@ -20,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 const dataProvider = drfProvider(apiUrl);
 const App = () => (
    <Admin dataProvider={dataProvider}>
-      <Resource name="warehouse/rolls" list={ListGuesser} />
+      <Resource name="warehouse/rolls" options={{ label: 'All Rolls' }}  list={RollsList} />
    </Admin>
 );
 
