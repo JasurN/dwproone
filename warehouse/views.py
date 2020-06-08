@@ -13,8 +13,15 @@ class RollView(generics.ListAPIView):
     pagination_class = ReactAdminPagination
     # filter_backends = ReactAdminFilterBackend
 
-class RollDetailView(generics.RetrieveAPIView):
-    pass
+
+class RollDetailView(APIView):
+    serializer_class = RollSerializer
+    pagination_class = ReactAdminPagination
+
+    def get(self, request, roll_id):
+        roll = Roll.objects.get(pk=roll_id)
+        rolls_serializer = RollSerializer(roll)
+        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)
