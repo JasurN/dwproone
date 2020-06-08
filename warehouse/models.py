@@ -7,6 +7,7 @@ class Paper_Producer(models.Model):
     short_name = models.CharField(max_length=50, unique=True)
 
     class Meta:
+        ordering = ['name']
         unique_together = ('name', 'short_name', )
 
     def __str__(self):
@@ -19,6 +20,7 @@ class Paper_Type(models.Model):
     description = models.CharField(help_text="paper type description eg: corrugated paper, cellulose", max_length=100)
 
     class Meta:
+        ordering = ['name']
         unique_together = ('name', 'code', )
 
     def __str__(self):
@@ -28,6 +30,9 @@ class Paper_Type(models.Model):
 class Paper_Format(models.Model):
     format = models.PositiveSmallIntegerField(help_text="format of paper", unique=True)
 
+    class Meta:
+        ordering = ['format']
+
     def __str__(self):
         return str(self.format)
 
@@ -35,6 +40,9 @@ class Paper_Format(models.Model):
 # Paper Grammage model
 class Paper_Grammage(models.Model):
     grammage = models.PositiveSmallIntegerField(help_text="grammage of paper", unique=True)
+
+    class Meta:
+        ordering = ['grammage']
 
     def __str__(self):
         return str(self.grammage)
