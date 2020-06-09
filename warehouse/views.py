@@ -5,8 +5,8 @@ from .react_admin_utilities import ReactAdminPagination, \
     ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption, Paper_Format
-from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer
+from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage
+from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer
 
 
 class RollsListView(generics.ListAPIView):
@@ -17,7 +17,8 @@ class RollsListView(generics.ListAPIView):
                        RelatedOrderingFilter,
                        filters.SearchFilter]
     search_fields = ['roll_id', 'paper__paper_type__name', ]
-    filterset_fields = ['paper__paper_format_id', ]
+    filterset_fields = ('paper__paper_format_id',
+                        'paper__grammage_id',)
     ordering_fields = '__all__'
 
 
@@ -57,6 +58,26 @@ class PaperFormatDetailView(APIView):
         return Response(status=status.HTTP_200_OK,
                         data=paper_format_serializer.data)
 
+
+class PaperGrammageListView(generics.ListAPIView):
+    queryset = Paper_Grammage.objects.all().order_by('grammage')
+    serializer_class = PaperGrammageSerializer
+    pagination_class = ReactAdminPagination
+    filter_backends = [ReactAdminFilterBackend,
+                       RelatedOrderingFilter]
+
+    ordering_fields = '__all__'
+
+
+class PaperGrammageDetailView(APIView):
+    serializer_class = PaperGrammageSerializer
+    pagination_class = ReactAdminPagination
+
+    def get(self, request, format_id):
+        paper_grammage = Paper_Grammage.objects.get(pk=format_id)
+        paper_grammage_serializer = PaperGrammageSerializer(paper_grammage)
+        return Response(status=status.HTTP_200_OK,
+                        data=paper_grammage_serializer.data)
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)

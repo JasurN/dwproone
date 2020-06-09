@@ -8,6 +8,9 @@ const RollsFilter = (props) => (
             <SelectInput optionText="format" />
         </ReferenceInput>
 
+         <ReferenceInput label="Grammage" source="paper__grammage__id" reference="warehouse/papers/grammage" allowEmpty>
+            <SelectInput optionText="grammage" />
+        </ReferenceInput>
     </Filter>
 );
 

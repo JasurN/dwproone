@@ -18,6 +18,7 @@ const App = () => (
         <Resource name="warehouse/rolls/return" options={{label: 'Rolls Return From Production'}} list={RollsList}/>
         <Resource name='warehouse/rolls' options={{label: 'All Rolls'}} list={RollsList}/>
         <Resource name='warehouse/papers/formats'/>
+        <Resource name='warehouse/papers/grammage'/>
     </Admin>
 );
 
