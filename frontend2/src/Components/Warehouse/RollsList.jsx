@@ -4,9 +4,10 @@ import {List, Datagrid, TextField, NumberField, DateField, EditButton, Filter, T
 const RollsFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="search" alwaysOn />
-        <ReferenceInput label="Format" source="paper__paper_format_id" reference="warehouse/papers/formats" allowEmpty>
+        <ReferenceInput label="Format" source="paper__paper_format__id" reference="warehouse/papers/formats" allowEmpty>
             <SelectInput optionText="format" />
         </ReferenceInput>
+
     </Filter>
 );
 
