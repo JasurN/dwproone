@@ -17,6 +17,7 @@ class RollsListView(generics.ListAPIView):
                        RelatedOrderingFilter,
                        filters.SearchFilter]
     search_fields = ['roll_id', 'paper__paper_type__name', ]
+    filterset_fields = ['paper__paper_format_id', ]
     ordering_fields = '__all__'
 
 
@@ -37,12 +38,25 @@ class RollsConsumptionListView(generics.ListAPIView):
 
 
 class PaperFormatListView(generics.ListAPIView):
-    queryset = Paper_Format.objects.all()
+    queryset = Paper_Format.objects.all().order_by('format')
     serializer_class = PaperFormatSerializer
     pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
                        RelatedOrderingFilter]
+
     ordering_fields = '__all__'
+
+
+class PaperFormatDetailView(APIView):
+    serializer_class = PaperFormatSerializer
+    pagination_class = ReactAdminPagination
+
+    def get(self, request, format_id):
+        paper_format = Paper_Format.objects.get(pk=format_id)
+        paper_format_serializer = PaperFormatSerializer(paper_format)
+        return Response(status=status.HTTP_200_OK,
+                        data=paper_format_serializer.data)
+
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)
