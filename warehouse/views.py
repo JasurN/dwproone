@@ -1,13 +1,12 @@
 from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 
-from .CustomOrdering import RelatedOrderingFilter
 from .react_admin_utilities import ReactAdminPagination, \
-    ReactAdminFilterBackend
+    ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption
-from .serializers import RollSerializer, RollConsumptionSerializer
+from .models import Roll, Roll_Consumption, Paper_Format
+from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer
 
 
 class RollsListView(generics.ListAPIView):
@@ -36,6 +35,14 @@ class RollsConsumptionListView(generics.ListAPIView):
     serializer_class = RollConsumptionSerializer
     pagination_class = ReactAdminPagination
 
+
+class PaperFormatListView(generics.ListAPIView):
+    queryset = Paper_Format.objects.all()
+    serializer_class = PaperFormatSerializer
+    pagination_class = ReactAdminPagination
+    filter_backends = [ReactAdminFilterBackend,
+                       RelatedOrderingFilter]
+    ordering_fields = '__all__'
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)
