@@ -9,7 +9,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import drfProvider from './dataprovider/index'
 import {RollsList} from "./Components/Warehouse/RollsList";
 import Dashboard from "./Components/Dashboard/Dashboard";
-
+import authProviders from "./Authentication/authProviders";
 let apiUrl = 'http://localhost:8000/api';
 if (process.env.NODE_ENV === 'production') {
     apiUrl = 'https://dwproone.uz/api'
@@ -17,7 +17,8 @@ if (process.env.NODE_ENV === 'production') {
 const dataProvider = drfProvider(apiUrl);
 const App = () => (
     <Admin dataProvider={dataProvider}
-            dashboard={Dashboard}>
+            dashboard={Dashboard}
+            authProvider={authProviders}>
         <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}}
                   list={RollsList} icon={LowPriorityIcon}/>
         <Resource name='warehouse/rolls/income' options={{label: 'Rolls Income'}}
