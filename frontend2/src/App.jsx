@@ -13,11 +13,10 @@ if (process.env.NODE_ENV === 'production') {
 const dataProvider = drfProvider(apiUrl);
 const App = () => (
     <Admin dataProvider={dataProvider}>
-        <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}} list={RollsList}/>
-        <Resource name='warehouse/rolls/income' options={{label: 'Rolls Income'}} list={RollsList}/>
+        <Resource name="warehouse/rolls/consumption" options={{label: 'Rolls Consumption'}} list={RollsList}/>
+        <Resource name="warehouse/rolls/income" options={{label: 'Rolls Income'}} list={RollsList}/>
         <Resource name="warehouse/rolls/return" options={{label: 'Rolls Return From Production'}} list={RollsList}/>
-        <Resource name='warehouse/rolls' options={{label: 'All Rolls'}} list={RollsList}/>
-        <Resource name='warehouse/papers/formats'/>
+        <Resource name="warehouse/rolls" options={{label: 'All Rolls'}} list={RollsList}/>
     </Admin>
 );
 
