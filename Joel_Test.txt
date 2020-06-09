@@ -1,5 +1,5 @@
 1. Do you use source control? YES (Github)
-2. 2. Can you make a build in one step? NO (CI/CD)
+2. Can you make a build in one step? YES (CI/CD)
 3. Do you make daily builds? NO (CI/CD)
 4. Do you have a bug database? YES (yes bugs_list.txt)
 5. 5. Do you fix bugs before writing new code? YES (No bugs)
@@ -8,5 +8,5 @@
 8. Do programmers have quiet working conditions? YES
 9. Do you use the best tools money can buy? YES (Maybe optimized with MacBook Pro)
 10. Do you have testers? NO
-11. Do new candidates write code during their interview? YES
+11. Do new candidates write code during their interview? No
 12. Do you do hallway usability testing? YES
