@@ -5,8 +5,8 @@ from .views import RollsListView, RollDetailView, RollsConsumptionListView, \
 app_name = 'warehouse'
 
 urlpatterns = [
-    path('rolls/', RollsListView.as_view()),
-    path('rolls/<int:roll_id>/', RollDetailView.as_view()),
+    path('rolls/all/', RollsListView.as_view()),
+    path('rolls/all/<int:roll_id>/', RollDetailView.as_view()),
 ]
 
 urlpatterns += [
