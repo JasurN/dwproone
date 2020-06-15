@@ -19,7 +19,8 @@ const dataProvider = drfProvider(apiUrl);
 const App = () => (
     <Admin dataProvider={dataProvider}
            dashboard={Dashboard}
-           authProvider={authProviders}>
+           authProvider={authProviders}
+           title="My Custom Admin">
         <Resource name='warehouse/rolls/all' options={{label: 'All Rolls'}}
                   list={RollsList} icon={HomeWorkIcon}/>
         <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}}
