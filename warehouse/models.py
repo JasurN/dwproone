@@ -131,6 +131,16 @@ class Roll_Consumption(models.Model):
     roll = models.ForeignKey(Roll, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
+    ROLL_STATUS = (
+        ('p', 'production'),
+        ('c', 'consumed'),
+    )
+    status = models.CharField(
+        max_length=1,
+        choices=ROLL_STATUS,
+        default='p',
+        help_text='Roll Status',
+    )
 
 
 class Roll_Incoming(models.Model):

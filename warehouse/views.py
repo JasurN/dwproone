@@ -11,7 +11,7 @@ from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatS
 
 
 class RollsListView(generics.ListAPIView):
-    queryset = Roll.objects.all()
+    queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
     pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
@@ -37,6 +37,20 @@ class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
     pagination_class = ReactAdminPagination
+    filter_backends = [ReactAdminFilterBackend,
+                       RelatedOrderingFilter,
+                       filters.SearchFilter]
+
+
+class MakeRollConsumption(APIView):
+    def put(self, request, pk):
+        roll = Roll.objects.get(pk=pk)
+        roll.current_weight = 0
+        roll_consumption = Roll_Consumption(roll=roll, amount=roll.initial_weight)
+        roll_consumption.save()
+        roll.save()
+        rolls_serializer = RollSerializer(roll)
+        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
 
 
 class RollsIncomeListView(generics.ListAPIView):
