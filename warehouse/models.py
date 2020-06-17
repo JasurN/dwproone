@@ -4,7 +4,6 @@ from django.db import models
 
 class Paper_Producer(models.Model):
     name = models.CharField(help_text="raw material producer company name", max_length=150, unique=True)
-    # Todo: delete null true when make migration from 0
     short_name = models.CharField(max_length=50, unique=True)
 
     class Meta:

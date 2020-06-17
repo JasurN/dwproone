@@ -26,7 +26,7 @@ const App = () => (
            title="My Custom Admin">
         <Resource name={getAllRollsRoute} options={{label: 'All Rolls'}}
                   list={RollsList}
-                  // create={AddRoll}
+                  create={AddRoll}
                   icon={HomeWorkIcon}/>
         <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}}
                   list={RollsConsumptionList} icon={LowPriorityIcon} exact={true}/>

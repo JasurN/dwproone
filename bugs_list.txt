@@ -2,5 +2,4 @@ This file contains information about all system bugs.
 Format is (Name of the bug, description, when you caught the bag)
 
 Example:
-1. reformat django rest with better tutorials
-3. amount of papers (rolls) should be float instead of int
+
