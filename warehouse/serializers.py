@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Paper, Roll, Roll_Consumption, Paper_Format, Paper_Grammage
+from .models import Paper, Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return
 
 
 class PaperSerializer(serializers.ModelSerializer):
@@ -33,6 +33,20 @@ class RollSerializer(serializers.ModelSerializer):
 class RollConsumptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roll_Consumption
+        fields = '__all__'
+        depth = 3
+
+
+class RollIncomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Roll_Incoming
+        fields = '__all__'
+        depth = 3
+
+
+class RollReturnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Roll_Return
         fields = '__all__'
         depth = 3
 

@@ -5,8 +5,9 @@ from .react_admin_utilities import ReactAdminPagination, \
     ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage
-from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer
+from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return
+from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer, \
+    RollIncomeSerializer, RollReturnSerializer
 
 
 class RollsListView(generics.ListAPIView):
@@ -35,6 +36,18 @@ class RollDetailView(APIView):
 class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
+    pagination_class = ReactAdminPagination
+
+
+class RollsIncomeListView(generics.ListAPIView):
+    queryset = Roll_Incoming.objects.all()
+    serializer_class = RollIncomeSerializer
+    pagination_class = ReactAdminPagination
+
+
+class RollsReturnListView(generics.ListAPIView):
+    queryset = Roll_Return.objects.all()
+    serializer_class = RollReturnSerializer
     pagination_class = ReactAdminPagination
 
 

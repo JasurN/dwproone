@@ -28,7 +28,7 @@ const App = () => (
                   list={RollsList} icon={LowPriorityIcon} exact={true}/>
         <Resource name='warehouse/rolls/income' options={{label: 'Rolls Income'}}
                   list={RollsList} icon={GetAppIcon}/>
-        <Resource name="warehouse/rolls/return" options={{label: 'Rolls Return From Production'}}
+        <Resource name="warehouse/rolls/return" options={{label: 'Rolls Return'}}
                   list={RollsList} icon={CachedIcon}/>
         <Resource name='warehouse/papers/formats'/>
         <Resource name='warehouse/papers/grammage'/>
