@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -91,8 +92,10 @@ class Paper(models.Model):
 class Roll(models.Model):
     roll_id = models.CharField(max_length=120, unique=True)
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
-    initial_weight = models.PositiveIntegerField()
-    current_weight = models.PositiveIntegerField()
+    initial_weight = models.FloatField(
+        validators=[MinValueValidator(0.0), MaxValueValidator(5000)], )
+    current_weight = models.FloatField(
+        validators=[MinValueValidator(0.0), MaxValueValidator(5000)], )
     income_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
