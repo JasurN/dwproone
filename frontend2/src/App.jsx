@@ -12,6 +12,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import authProviders from "./Authentication/authProviders";
 import {getAllRollsRoute} from "./dataprovider/apiRoutes";
 import {RollsConsumptionList} from "./Components/Warehouse/RollsConsumption/RollsConsumptionList";
+import {AddRoll} from "./Components/Warehouse/AllRolls/AddRoll";
 
 let apiUrl = 'http://localhost:8000/api';
 if (process.env.NODE_ENV === 'production') {
@@ -24,7 +25,9 @@ const App = () => (
            authProvider={authProviders}
            title="My Custom Admin">
         <Resource name={getAllRollsRoute} options={{label: 'All Rolls'}}
-                  list={RollsList} icon={HomeWorkIcon}/>
+                  list={RollsList}
+                  // create={AddRoll}
+                  icon={HomeWorkIcon}/>
         <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}}
                   list={RollsConsumptionList} icon={LowPriorityIcon} exact={true}/>
         <Resource name='warehouse/rolls/income' options={{label: 'Rolls Income'}}
