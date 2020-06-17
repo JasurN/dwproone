@@ -7,9 +7,10 @@ import LowPriorityIcon from '@material-ui/icons/LowPriority';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import drfProvider from './dataprovider/index'
-import {RollsList} from "./Components/Warehouse/RollsList";
+import {RollsList} from "./Components/Warehouse/AllRolls/RollsList";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import authProviders from "./Authentication/authProviders";
+import {getAllRollsRoute} from "./dataprovider/apiRoutes";
 
 let apiUrl = 'http://localhost:8000/api';
 if (process.env.NODE_ENV === 'production') {
@@ -21,7 +22,7 @@ const App = () => (
            dashboard={Dashboard}
            authProvider={authProviders}
            title="My Custom Admin">
-        <Resource name='warehouse/rolls/all' options={{label: 'All Rolls'}}
+        <Resource name={getAllRollsRoute} options={{label: 'All Rolls'}}
                   list={RollsList} icon={HomeWorkIcon}/>
         <Resource name='warehouse/rolls/consumption' options={{label: 'Rolls Consumption'}}
                   list={RollsList} icon={LowPriorityIcon} exact={true}/>
