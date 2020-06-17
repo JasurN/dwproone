@@ -1,7 +1,8 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
     List, Datagrid, TextField, NumberField, DateField,
-    EditButton, Filter, TextInput, ReferenceInput, SelectInput
+    Filter, TextInput, ReferenceInput, SelectInput,
+    BulkDeleteButton, BulkExportButton
 } from 'react-admin';
 import RollConsumeButton from "./RollConsumeButton";
 
@@ -18,12 +19,20 @@ const RollsFilter = (props) => (
     </Filter>
 );
 
+const PostBulkActionButtons = props => (
+    <Fragment>
+        <RollConsumeButton label="Make Consume" {...props} />
+        <BulkExportButton  {...props} />
+    </Fragment>
+);
+
+
 export const RollsList = props => (
     <List
         filters={<RollsFilter/>}
         title={"All Rolls"}
         {...props}
-        bulkActionButtons={<RollConsumeButton/>}
+        bulkActionButtons={<PostBulkActionButtons/>}
     >
         <Datagrid>
             <TextField source="roll_id" label="Roll ID"/>

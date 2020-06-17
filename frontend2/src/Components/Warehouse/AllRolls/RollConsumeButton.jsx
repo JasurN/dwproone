@@ -12,7 +12,7 @@ import {
 import {getAllRollsConsumptionRoute} from "../../../dataprovider/apiRoutes";
 
 
-const RollConsumeButton = ({resource, selectedIds}) => {
+const RollConsumeButton = ({resource, selectedIds, label}) => {
     const notify = useNotify();
     const unselectAll = useUnselectAll();
     const refresh = useRefresh();
@@ -45,7 +45,7 @@ const RollConsumeButton = ({resource, selectedIds}) => {
 
     return (
         <Button
-            label="Consume"
+            label={label}
             disabled={loading}
             onClick={updateMany}
         >

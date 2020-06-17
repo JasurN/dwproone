@@ -1,9 +1,10 @@
 import React from "react";
-import {List, Datagrid, TextField, NumberField, DateField, EditButton} from 'react-admin';
+import {List, Datagrid, TextField, NumberField, DateField} from 'react-admin';
 
 
 export const RollsConsumptionList = props => (
-    <List   {...props}>
+    <List   {...props}
+            title={"Rolls Consumption"}>
         <Datagrid>
             {/*<TextField source="id"/>*/}
             <TextField source="roll.roll_id" label="Roll ID"/>
