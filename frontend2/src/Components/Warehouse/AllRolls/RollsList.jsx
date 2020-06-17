@@ -26,8 +26,7 @@ export const RollsList = props => (
         bulkActionButtons={<RollConsumeButton/>}
     >
         <Datagrid>
-            {/*<TextField source="id"/>*/}
-            <TextField source="roll_id"/>
+            <TextField source="roll_id" label="Roll ID"/>
             <NumberField source="initial_weight"/>
             <NumberField source="current_weight"/>
             <DateField source="income_date"/>
@@ -35,7 +34,6 @@ export const RollsList = props => (
             <TextField source="paper.grammage.grammage" label="Grammage"/>
             <TextField source="paper.paper_format.format" label="Format"/>
             <TextField source="paper.company.name" label="Company"/>
-            <EditButton/>
         </Datagrid>
     </List>
 );
