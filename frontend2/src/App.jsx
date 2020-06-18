@@ -11,18 +11,19 @@ import {RollsList} from "./components/warehouse/allRolls/RollsList";
 import Dashboard from "./components/dashboard/Dashboard";
 import authProviders from "./authentication/authProviders";
 import {
-    getAllPaperFormatRoute, getAllPaperGrammageRoute,
+    devApiRoute,
+    getAllPaperFormatRoute, getAllPaperGrammageRoute, getAllPaperProducersRoute,
     getAllRollsConsumptionRoute,
     getAllRollsIncomeRoute,
     getAllRollsReturnRoute,
-    getAllRollsRoute
+    getAllRollsRoute, productionApiRoute
 } from "./dataprovider/apiRoutes";
 import {RollsConsumptionList} from "./components/warehouse/rollsConsumption/RollsConsumptionList";
 import {AddRoll} from "./components/warehouse/allRolls/AddRoll";
 
-let apiUrl = 'http://localhost:8000/api';
+let apiUrl = devApiRoute;
 if (process.env.NODE_ENV === 'production') {
-    apiUrl = 'https://dwproone.uz/api'
+    apiUrl = productionApiRoute;
 }
 const dataProvider = drfProvider(apiUrl);
 const App = () => (
@@ -49,6 +50,7 @@ const App = () => (
                   icon={CachedIcon}/>
         <Resource name={getAllPaperFormatRoute}/>
         <Resource name={getAllPaperGrammageRoute}/>
+        <Resource name={getAllPaperProducersRoute}/>
     </Admin>
 );
 export default App;

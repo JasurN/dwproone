@@ -4,3 +4,6 @@ export const getAllRollsIncomeRoute = 'warehouse/rolls/income';
 export const getAllRollsReturnRoute = 'warehouse/rolls/return';
 export const getAllPaperFormatRoute = 'warehouse/papers/formats';
 export const getAllPaperGrammageRoute = 'warehouse/papers/grammage';
+export const getAllPaperProducersRoute = 'warehouse/papers/producers';
+export const devApiRoute = 'http://localhost:8000/api';
+export const productionApiRoute = 'http://localhost:8000/api';
