@@ -1,12 +1,17 @@
 import React from "react";
-import {List, Datagrid, TextField, NumberField, DateField} from 'react-admin';
+import {List, Datagrid, TextField, NumberField, DateField, Filter, DateInput} from 'react-admin';
 
-
+const ListFilters = (props) => (
+    <Filter {...props}>
+        <DateInput source="date_gte" alwaysOn/>
+        <DateInput source="date_lte" alwaysOn/>
+    </Filter>
+);
 export const RollsConsumptionList = props => (
     <List   {...props}
-            title={"Rolls Consumption"}>
+            title={"Rolls Consumption"}
+            filters={<ListFilters/>}>
         <Datagrid>
-            {/*<TextField source="id"/>*/}
             <TextField source="roll.roll_id" label="Roll ID"/>
             <NumberField source="amount"/>
             <DateField source="date"/>

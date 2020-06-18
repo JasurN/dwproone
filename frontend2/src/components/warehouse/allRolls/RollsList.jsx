@@ -9,13 +9,16 @@ import RollConsumeButton from "./RollConsumeButton";
 const RollsFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="search" alwaysOn/>
-        <ReferenceInput label="Format" source="paper__paper_format__id" reference="warehouse/papers/formats" allowEmpty>
+        <ReferenceInput label="Format" source="paper__paper_format__id"
+                        reference="warehouse/papers/formats" alwaysOn>
             <SelectInput optionText="format"/>
         </ReferenceInput>
-        <ReferenceInput label="Grammage" source="paper__grammage__id" reference="warehouse/papers/grammage" allowEmpty>
+        <ReferenceInput label="Grammage" source="paper__grammage__id"
+                        reference="warehouse/papers/grammage" alwaysOn>
             <SelectInput optionText="grammage"/>
         </ReferenceInput>
-        <ReferenceInput label="Producer" source="paper__company__id" reference="warehouse/papers/producers" allowEmpty>
+        <ReferenceInput label="Producer" source="paper__company__id"
+                        reference="warehouse/papers/producers" allowEmpty>
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
