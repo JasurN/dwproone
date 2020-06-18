@@ -1,9 +1,11 @@
-export const getAllRollsRoute = 'warehouse/rolls/all';
-export const getAllRollsConsumptionRoute = 'warehouse/rolls/consumption';
-export const getAllRollsIncomeRoute = 'warehouse/rolls/income';
-export const getAllRollsReturnRoute = 'warehouse/rolls/return';
-export const getAllPaperFormatRoute = 'warehouse/papers/formats';
-export const getAllPaperGrammageRoute = 'warehouse/papers/grammage';
-export const getAllPaperProducersRoute = 'warehouse/papers/producers';
+export const allRollsRoute = 'warehouse/rolls/all';
+export const allRollsConsumptionRoute = 'warehouse/rolls/consumption';
+export const allRollsIncomeRoute = 'warehouse/rolls/income';
+export const allRollsReturnRoute = 'warehouse/rolls/return';
+export const allPaperFormatRoute = 'warehouse/papers/formats';
+export const allPaperGrammageRoute = 'warehouse/papers/grammage';
+export const allPaperProducersRoute = 'warehouse/papers/producers';
+export const allPaperTypesRoute = 'warehouse/papers/types';
+
 export const devApiRoute = 'http://localhost:8000/api';
-export const productionApiRoute = 'http://localhost:8000/api';
+export const productionApiRoute = 'https://dwproone.uz/api';

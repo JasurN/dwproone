@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Paper, Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, \
-    Paper_Producer
+    Paper_Producer, Paper_Type
 
 
 class PaperSerializer(serializers.ModelSerializer):
@@ -29,6 +29,18 @@ class RollSerializer(serializers.ModelSerializer):
         model = Roll
         fields = '__all__'
         depth = 2
+
+
+class RollAddSerializer(serializers.ModelSerializer):
+    grammage_id = serializers.IntegerField(source='paper.grammage.id')
+    format_id = serializers.IntegerField(source='paper.paper_format.id')
+    producer_id = serializers.IntegerField(source='paper.paper_format.id')
+    paper_type_id = serializers.IntegerField(source='paper.paper_type.id')
+
+    class Meta:
+        model = Roll
+        fields = ['producer_id', 'paper_type_id',
+                  'format_id', 'grammage_id', 'initial_weight']
 
 
 class RollConsumptionSerializer(serializers.ModelSerializer):
@@ -67,6 +79,12 @@ class PaperGrammageSerializer(serializers.ModelSerializer):
 class PaperProducerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper_Producer
+        fields = '__all__'
+
+
+class PaperTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Paper_Type
         fields = '__all__'
 # class Paper_Consumption_Serializer(serializers.ModelSerializer):
 #     """

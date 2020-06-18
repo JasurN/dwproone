@@ -5,9 +5,10 @@ from .react_admin_utilities import ReactAdminPagination, \
     ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, Paper_Producer
+from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, Paper_Producer, \
+    Paper_Type
 from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer, \
-    RollIncomeSerializer, RollReturnSerializer, PaperProducerSerializer
+    RollIncomeSerializer, RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer
 
 
 class RollsListView(generics.ListCreateAPIView):
@@ -23,6 +24,9 @@ class RollsListView(generics.ListCreateAPIView):
     ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):
+        roll_serializer = RollAddSerializer(data=request.data) \
+            .is_valid(raise_exception=True)
+
         return Response(status=status.HTTP_201_CREATED)
 
 
@@ -129,6 +133,16 @@ class PaperProducerDetailView(APIView):
         paper_producer_serializer = PaperProducerSerializer(paper_producer)
         return Response(status=status.HTTP_200_OK,
                         data=paper_producer_serializer.data)
+
+
+class PaperTypesListView(generics.ListAPIView):
+    queryset = Paper_Type.objects.all()
+    serializer_class = PaperTypeSerializer
+    pagination_class = ReactAdminPagination
+    filter_backends = [ReactAdminFilterBackend,
+                       RelatedOrderingFilter]
+
+    ordering_fields = '__all__'
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)

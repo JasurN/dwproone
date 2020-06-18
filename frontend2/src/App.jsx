@@ -12,11 +12,11 @@ import Dashboard from "./components/dashboard/Dashboard";
 import authProviders from "./authentication/authProviders";
 import {
     devApiRoute,
-    getAllPaperFormatRoute, getAllPaperGrammageRoute, getAllPaperProducersRoute,
-    getAllRollsConsumptionRoute,
-    getAllRollsIncomeRoute,
-    getAllRollsReturnRoute,
-    getAllRollsRoute, productionApiRoute
+    allPaperFormatRoute, allPaperGrammageRoute, allPaperProducersRoute,
+    allRollsConsumptionRoute,
+    allRollsIncomeRoute,
+    allRollsReturnRoute,
+    allRollsRoute, productionApiRoute, allPaperTypesRoute
 } from "./dataprovider/apiRoutes";
 import {RollsConsumptionList} from "./components/warehouse/rollsConsumption/RollsConsumptionList";
 import {AddRoll} from "./components/warehouse/allRolls/AddRoll";
@@ -31,26 +31,27 @@ const App = () => (
            dashboard={Dashboard}
            authProvider={authProviders}
            title="My Custom Admin">
-        <Resource name={getAllRollsRoute}
+        <Resource name={allRollsRoute}
                   options={{label: 'All Rolls'}}
                   list={RollsList}
                   create={AddRoll}
                   icon={HomeWorkIcon}/>
-        <Resource name={getAllRollsConsumptionRoute}
+        <Resource name={allRollsConsumptionRoute}
                   options={{label: 'Rolls Consumption'}}
                   list={RollsConsumptionList}
                   icon={LowPriorityIcon}/>
-        <Resource name={getAllRollsIncomeRoute}
+        <Resource name={allRollsIncomeRoute}
                   options={{label: 'Rolls Income'}}
                   list={RollsList}
                   icon={GetAppIcon}/>
-        <Resource name={getAllRollsReturnRoute}
+        <Resource name={allRollsReturnRoute}
                   options={{label: 'Rolls Return'}}
                   list={RollsList}
                   icon={CachedIcon}/>
-        <Resource name={getAllPaperFormatRoute}/>
-        <Resource name={getAllPaperGrammageRoute}/>
-        <Resource name={getAllPaperProducersRoute}/>
+        <Resource name={allPaperFormatRoute}/>
+        <Resource name={allPaperGrammageRoute}/>
+        <Resource name={allPaperProducersRoute}/>
+        <Resource name={allPaperTypesRoute}/>
     </Admin>
 );
 export default App;

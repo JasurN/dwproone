@@ -9,7 +9,7 @@ import {
     Button,
     CRUD_UPDATE_MANY,
 } from 'react-admin';
-import {getAllRollsConsumptionRoute} from "../../../dataprovider/apiRoutes";
+import {allRollsConsumptionRoute} from "../../../dataprovider/apiRoutes";
 
 
 const RollConsumeButton = ({resource, selectedIds, label}) => {
@@ -17,7 +17,7 @@ const RollConsumeButton = ({resource, selectedIds, label}) => {
     const unselectAll = useUnselectAll();
     const refresh = useRefresh();
     const [updateMany, {loading}] = useUpdateMany(
-        getAllRollsConsumptionRoute,
+        allRollsConsumptionRoute,
         selectedIds,
         {views: 0},
         {
