@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import RollsListView, RollDetailView, RollsConsumptionListView, \
     PaperFormatListView, PaperFormatDetailView, PaperGrammageListView, PaperGrammageDetailView, RollsIncomeListView, \
-    RollsReturnListView, MakeRollConsumption
+    RollsReturnListView, MakeRollConsumption, PaperProducerListView, PaperProducerDetailView
 
 app_name = 'warehouse'
 
@@ -25,10 +25,15 @@ urlpatterns += [
 
 urlpatterns += [
     path('papers/formats/', PaperFormatListView.as_view()),
-    path('papers/formats/<int:format_id>/', PaperFormatDetailView.as_view()),
+    path('papers/formats/<int:pk>/', PaperFormatDetailView.as_view()),
 ]
 
 urlpatterns += [
     path('papers/grammage/', PaperGrammageListView.as_view()),
-    path('papers/grammage/<int:format_id>/', PaperGrammageDetailView.as_view()),
+    path('papers/grammage/<int:pk>/', PaperGrammageDetailView.as_view()),
+]
+
+urlpatterns += [
+    path('papers/producers/', PaperProducerListView.as_view()),
+    path('papers/producers/<int:pk>/', PaperProducerDetailView.as_view()),
 ]

@@ -5,12 +5,12 @@ from .react_admin_utilities import ReactAdminPagination, \
     ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return
+from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, Paper_Producer
 from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer, \
-    RollIncomeSerializer, RollReturnSerializer
+    RollIncomeSerializer, RollReturnSerializer, PaperProducerSerializer
 
 
-class RollsListView(generics.ListAPIView):
+class RollsListView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
     pagination_class = ReactAdminPagination
@@ -21,6 +21,9 @@ class RollsListView(generics.ListAPIView):
     filterset_fields = ('paper__paper_format_id',
                         'paper__grammage_id',)
     ordering_fields = '__all__'
+
+    def create(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class RollDetailView(APIView):
@@ -79,8 +82,8 @@ class PaperFormatDetailView(APIView):
     serializer_class = PaperFormatSerializer
     pagination_class = ReactAdminPagination
 
-    def get(self, request, format_id):
-        paper_format = Paper_Format.objects.get(pk=format_id)
+    def get(self, request, pk):
+        paper_format = Paper_Format.objects.get(pk=pk)
         paper_format_serializer = PaperFormatSerializer(paper_format)
         return Response(status=status.HTTP_200_OK,
                         data=paper_format_serializer.data)
@@ -100,11 +103,32 @@ class PaperGrammageDetailView(APIView):
     serializer_class = PaperGrammageSerializer
     pagination_class = ReactAdminPagination
 
-    def get(self, request, format_id):
-        paper_grammage = Paper_Grammage.objects.get(pk=format_id)
+    def get(self, request, pk):
+        paper_grammage = Paper_Grammage.objects.get(pk=pk)
         paper_grammage_serializer = PaperGrammageSerializer(paper_grammage)
         return Response(status=status.HTTP_200_OK,
                         data=paper_grammage_serializer.data)
+
+
+class PaperProducerListView(generics.ListAPIView):
+    queryset = Paper_Producer.objects.all()
+    serializer_class = PaperProducerSerializer
+    pagination_class = ReactAdminPagination
+    filter_backends = [ReactAdminFilterBackend,
+                       RelatedOrderingFilter]
+
+    ordering_fields = '__all__'
+
+
+class PaperProducerDetailView(APIView):
+    serializer_class = PaperProducerSerializer
+    pagination_class = ReactAdminPagination
+
+    def get(self, request, pk):
+        paper_producer = Paper_Producer.objects.get(pk=pk)
+        paper_producer_serializer = PaperProducerSerializer(paper_producer)
+        return Response(status=status.HTTP_200_OK,
+                        data=paper_producer_serializer.data)
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)

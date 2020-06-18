@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'warehouse',
     'sales',
-    'frontend',
     'frontend2',
     'knox',
 
