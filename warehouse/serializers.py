@@ -32,15 +32,15 @@ class RollSerializer(serializers.ModelSerializer):
 
 
 class RollAddSerializer(serializers.ModelSerializer):
-    grammage_id = serializers.IntegerField(source='paper.grammage.id')
+    producer_id = serializers.IntegerField(source='paper.company.id')
     format_id = serializers.IntegerField(source='paper.paper_format.id')
-    producer_id = serializers.IntegerField(source='paper.paper_format.id')
+    grammage_id = serializers.IntegerField(source='paper.grammage.id')
     paper_type_id = serializers.IntegerField(source='paper.paper_type.id')
 
     class Meta:
         model = Roll
-        fields = ['producer_id', 'paper_type_id',
-                  'format_id', 'grammage_id', 'initial_weight']
+        fields = ['producer_id', 'format_id', 'grammage_id',
+                  'paper_type_id', 'initial_weight']
 
 
 class RollConsumptionSerializer(serializers.ModelSerializer):

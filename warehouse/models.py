@@ -95,6 +95,7 @@ class Roll(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(5000)], )
     current_weight = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(5000)], )
+    instance_number = models.PositiveIntegerField(default=1)
     income_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

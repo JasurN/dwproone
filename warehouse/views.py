@@ -1,17 +1,18 @@
 from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 
+from .utility import get_roll_id_and_instance_number
 from .react_admin_utilities import ReactAdminPagination, \
     ReactAdminFilterBackend, RelatedOrderingFilter
 from rest_framework.response import Response
 
 from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, Paper_Producer, \
-    Paper_Type
+    Paper_Type, Paper
 from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer, \
     RollIncomeSerializer, RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer
 
 
-class RollsListView(generics.ListCreateAPIView):
+class RollsListCreateView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
     pagination_class = ReactAdminPagination
@@ -24,9 +25,19 @@ class RollsListView(generics.ListCreateAPIView):
     ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):
-        roll_serializer = RollAddSerializer(data=request.data) \
-            .is_valid(raise_exception=True)
-
+        roll_serializer = RollAddSerializer(data=request.data)
+        roll_serializer.is_valid(raise_exception=True)
+        paper = Paper.objects.get_or_create(company_id=roll_serializer.data['producer_id'],
+                                            grammage_id=roll_serializer.data['grammage_id'],
+                                            paper_format_id=roll_serializer.data['format_id'],
+                                            paper_type_id=roll_serializer.data['paper_type_id'])
+        roll_id, instance_number = get_roll_id_and_instance_number(paper[0].company_id, paper[0])
+        roll = Roll(roll_id=roll_id,
+                    paper=paper[0],
+                    instance_number=instance_number,
+                    initial_weight=roll_serializer.data['initial_weight'],
+                    current_weight=roll_serializer.data['initial_weight'])
+        roll.save()
         return Response(status=status.HTTP_201_CREATED)
 
 
@@ -143,6 +154,17 @@ class PaperTypesListView(generics.ListAPIView):
                        RelatedOrderingFilter]
 
     ordering_fields = '__all__'
+
+
+class PaperTypesDetailView(APIView):
+    serializer_class = PaperTypeSerializer
+    pagination_class = ReactAdminPagination
+
+    def get(self, request, pk):
+        paper_types = Paper_Type.objects.get(pk=pk)
+        paper_producer_serializer = PaperTypeSerializer(paper_types)
+        return Response(status=status.HTTP_200_OK,
+                        data=paper_producer_serializer.data)
 #     def get(self, request):
 #         rolls = Roll.objects.all()
 #         rolls_serializer = RollSerializer(rolls, many=True)
