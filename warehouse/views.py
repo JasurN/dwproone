@@ -37,7 +37,11 @@ class RollsListCreateView(generics.ListCreateAPIView):
                     instance_number=instance_number,
                     initial_weight=roll_serializer.data['initial_weight'],
                     current_weight=roll_serializer.data['initial_weight'])
+        roll_income = Roll_Incoming(roll=roll,
+                                    amount=roll_serializer.data['initial_weight'])
         roll.save()
+        roll_income.save()
+
         return Response(status=status.HTTP_201_CREATED)
 
 
