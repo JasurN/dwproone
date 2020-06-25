@@ -42,7 +42,7 @@ const App = () => (
                   icon={LowPriorityIcon}/>
         <Resource name={allRollsIncomeRoute}
                   options={{label: 'Rolls Income'}}
-                  list={RollsList}
+                  list={RollsConsumptionList}
                   icon={GetAppIcon}/>
         <Resource name={allRollsReturnRoute}
                   options={{label: 'Rolls Return'}}
