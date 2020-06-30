@@ -9,7 +9,7 @@ import RollConsumeButton from "./RollConsumeButton";
 const RollsFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="search" alwaysOn/>
-        <ReferenceInput label="Format" source="paper__paper_format__id"
+        <ReferenceInput label="Format" source="format"
                         reference="warehouse/papers/formats" alwaysOn>
             <SelectInput optionText="format"/>
         </ReferenceInput>

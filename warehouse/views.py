@@ -2,7 +2,7 @@ from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
-from .react_admin_utilities import ReactAdminFilterBackend, RelatedOrderingFilter
+from .react_admin_utilities import ReactAdminFilterBackend, RelatedOrderingFilter, PostFilter
 from rest_framework.response import Response
 
 from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
@@ -15,12 +15,13 @@ from .serializers import RollSerializer, RollConsumptionSerializer, \
 class RollsListCreateView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter,
-                       filters.SearchFilter]
+    # filter_backends = [
+    #
+    #                    filters.SearchFilter]
     # search_fields = ['roll_id', 'paper__paper_type__name', ]
-    filterset_fields = ('paper__paper_format_id',
-                        'paper__grammage_id',)
+    filterset_class = PostFilter
+    filterset_fields = ('grammage',
+                        )
     ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):

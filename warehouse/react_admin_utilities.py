@@ -1,5 +1,7 @@
 # pagination.py
 from collections import OrderedDict
+
+import django_filters
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 import json
@@ -8,6 +10,8 @@ from rest_framework import filters
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel
 from rest_framework.pagination import PageNumberPagination
+
+from .models import Roll
 
 
 class ReactAdminPagination(PageNumberPagination):
@@ -128,3 +132,11 @@ class RelatedOrderingFilter(filters.OrderingFilter):
 
 class PageNumberWithPageSizePagination(PageNumberPagination):
     page_size_query_param = 'page_size'
+
+
+class PostFilter(django_filters.FilterSet):
+    grammage = django_filters.NumberFilter(field_name='paper', lookup_expr="grammage_id__exact")
+
+    class Meta:
+        model = Roll
+        fields = ["grammage", ]
