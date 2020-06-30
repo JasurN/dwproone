@@ -8,17 +8,16 @@ import RollConsumeButton from "./RollConsumeButton";
 
 const RollsFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search" source="search" alwaysOn/>
-        <ReferenceInput label="Format" source="format"
+        <ReferenceInput label="Format" source="paper_format"
                         reference="warehouse/papers/formats" alwaysOn>
             <SelectInput optionText="format"/>
         </ReferenceInput>
-        <ReferenceInput label="Grammage" source="paper__grammage__id"
+        <ReferenceInput label="Grammage" source="grammage"
                         reference="warehouse/papers/grammage" alwaysOn>
             <SelectInput optionText="grammage"/>
         </ReferenceInput>
-        <ReferenceInput label="Producer" source="paper__company__id"
-                        reference="warehouse/papers/producers" allowEmpty>
+        <ReferenceInput label="Producer" source="paper_company"
+                        reference="warehouse/papers/producers" alwaysOn>
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
@@ -38,7 +37,7 @@ export const RollsList = props => (
         title={"All Rolls"}
         {...props}
         bulkActionButtons={<PostBulkActionButtons/>}
-        perPage={25}
+        perPage={50}
     >
         <Datagrid>
             <TextField source="roll_id" label="Roll ID"/>
