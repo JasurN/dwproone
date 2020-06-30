@@ -6,10 +6,11 @@ import CachedIcon from '@material-ui/icons/Cached';
 import LowPriorityIcon from '@material-ui/icons/LowPriority';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import drfProvider from './dataprovider/index'
+// import drfProvider from './dataprovider/index'
+import drfProvider, { tokenAuthProvider, fetchJsonWithAuthToken } from 'ra-data-django-rest-framework';
+
 import {RollsList} from "./components/warehouse/allRolls/RollsList";
 import Dashboard from "./components/dashboard/Dashboard";
-import authProviders from "./authentication/authProviders";
 import {
     devApiRoute,
     allPaperFormatRoute, allPaperGrammageRoute, allPaperProducersRoute,
@@ -21,15 +22,21 @@ import {
 import {RollsConsumptionList} from "./components/warehouse/rollsConsumption/RollsConsumptionList";
 import {AddRoll} from "./components/warehouse/allRolls/AddRoll";
 
+
 let apiUrl = devApiRoute;
 if (process.env.NODE_ENV === 'production') {
     apiUrl = productionApiRoute;
 }
-const dataProvider = drfProvider(apiUrl);
+let Options = {
+    obtainAuthTokenUrl: `${apiUrl}/api-token-auth/`
+};
+const authProvider = tokenAuthProvider(Options);
+
+const dataProvider = drfProvider(`${apiUrl}/api`, fetchJsonWithAuthToken);
 const App = () => (
     <Admin dataProvider={dataProvider}
            dashboard={Dashboard}
-           authProvider={authProviders}
+           authProvider={authProvider}
            title="My Custom Admin">
         <Resource name={allRollsRoute}
                   options={{label: 'All Rolls'}}

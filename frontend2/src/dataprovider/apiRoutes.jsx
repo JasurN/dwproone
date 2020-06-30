@@ -7,5 +7,5 @@ export const allPaperGrammageRoute = 'warehouse/papers/grammage';
 export const allPaperProducersRoute = 'warehouse/papers/producers';
 export const allPaperTypesRoute = 'warehouse/papers/types';
 
-export const devApiRoute = 'http://localhost:8000/api';
-export const productionApiRoute = 'https://dwproone.uz/api';
+export const devApiRoute = 'http://localhost:8000';
+export const productionApiRoute = 'https://dwproone.uz';

@@ -15,14 +15,14 @@ from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatS
 class RollsListCreateView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
-    pagination_class = ReactAdminPagination
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter,
-                       filters.SearchFilter]
-    search_fields = ['roll_id', 'paper__paper_type__name', ]
-    filterset_fields = ('paper__paper_format_id',
-                        'paper__grammage_id',)
-    ordering_fields = '__all__'
+    # pagination_class = ReactAdminPagination
+    # filter_backends = [ReactAdminFilterBackend,
+    #                    RelatedOrderingFilter,
+    #                    filters.SearchFilter]
+    # search_fields = ['roll_id', 'paper__paper_type__name', ]
+    # filterset_fields = ('paper__paper_format_id',
+    #                     'paper__grammage_id',)
+    # ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):
         roll_serializer = RollAddSerializer(data=request.data)

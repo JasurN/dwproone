@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel
+from rest_framework.pagination import PageNumberPagination
 
 
 class ReactAdminPagination(PageNumberPagination):
@@ -123,3 +124,7 @@ class RelatedOrderingFilter(filters.OrderingFilter):
     def remove_invalid_fields(self, queryset, fields, ordering, view):
         return [term for term in fields
                 if self.is_valid_field(queryset.model, term.lstrip('-'))]
+
+
+class PageNumberWithPageSizePagination(PageNumberPagination):
+    page_size_query_param = 'page_size'

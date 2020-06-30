@@ -1,2 +1,3 @@
 Need to do features
-* date for paper consumption
+1. date filter for paper consumption
+2. change frontent2 to frontend
