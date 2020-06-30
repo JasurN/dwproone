@@ -38,6 +38,7 @@ export const RollsList = props => (
         title={"All Rolls"}
         {...props}
         bulkActionButtons={<PostBulkActionButtons/>}
+        perPage={25}
     >
         <Datagrid>
             <TextField source="roll_id" label="Roll ID"/>
