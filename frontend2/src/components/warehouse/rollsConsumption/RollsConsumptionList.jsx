@@ -3,8 +3,8 @@ import {List, Datagrid, TextField, NumberField, DateField, Filter, DateInput} fr
 
 const ListFilters = (props) => (
     <Filter {...props}>
-        <DateInput source="date_gte" alwaysOn/>
-        <DateInput source="date_lte" alwaysOn/>
+        <DateInput label="From" source="date_gte" alwaysOn/>
+        <DateInput label="To" source="date_lte" alwaysOn/>
     </Filter>
 );
 export const RollsConsumptionList = props => (
