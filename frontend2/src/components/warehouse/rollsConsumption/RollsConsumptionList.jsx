@@ -8,9 +8,11 @@ const ListFilters = (props) => (
     </Filter>
 );
 export const RollsConsumptionList = props => (
-    <List   {...props}
-            title={"Rolls Consumption"}
-            filters={<ListFilters/>}>
+    <List
+        {...props}
+        title={"Rolls Consumption"}
+        filters={<ListFilters/>}
+    >
         <Datagrid>
             <TextField source="roll.roll_id" label="Roll ID"/>
             <NumberField source="amount"/>

@@ -1,27 +1,26 @@
-from rest_framework import status, generics, filters
+from rest_framework import status, generics
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
-from .react_admin_utilities import ReactAdminPagination, \
-    ReactAdminFilterBackend, RelatedOrderingFilter
+from .react_admin_utilities import ReactAdminFilterBackend, RelatedOrderingFilter, RollFilter
 from rest_framework.response import Response
 
-from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, Roll_Incoming, Roll_Return, Paper_Producer, \
-    Paper_Type, Paper
-from .serializers import RollSerializer, RollConsumptionSerializer, PaperFormatSerializer, PaperGrammageSerializer, \
-    RollIncomeSerializer, RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer
+from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
+    Roll_Incoming, Roll_Return, Paper_Producer, Paper_Type, Paper
+from .serializers import RollSerializer, RollConsumptionSerializer, \
+    PaperFormatSerializer, PaperGrammageSerializer, RollIncomeSerializer, \
+    RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer
 
 
 class RollsListCreateView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
-    pagination_class = ReactAdminPagination
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter,
-                       filters.SearchFilter]
-    search_fields = ['roll_id', 'paper__paper_type__name', ]
-    filterset_fields = ('paper__paper_format_id',
-                        'paper__grammage_id',)
+    # filter_backends = [
+    #
+    #                    filters.SearchFilter]
+    # search_fields = ['roll_id', 'paper__paper_type__name', ]
+    filterset_class = RollFilter
+    filterset_fields = ('grammage', 'paper_format')
     ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):
@@ -47,7 +46,6 @@ class RollsListCreateView(generics.ListCreateAPIView):
 
 class RollDetailView(APIView):
     serializer_class = RollSerializer
-    pagination_class = ReactAdminPagination
 
     def get(self, request, roll_id):
         roll = Roll.objects.get(pk=roll_id)
@@ -58,10 +56,7 @@ class RollDetailView(APIView):
 class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
-    pagination_class = ReactAdminPagination
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter,
-                       filters.SearchFilter]
+    filter_backends = [ReactAdminFilterBackend, ]
 
 
 class MakeRollConsumption(APIView):
@@ -78,19 +73,16 @@ class MakeRollConsumption(APIView):
 class RollsIncomeListView(generics.ListAPIView):
     queryset = Roll_Incoming.objects.all()
     serializer_class = RollIncomeSerializer
-    pagination_class = ReactAdminPagination
 
 
 class RollsReturnListView(generics.ListAPIView):
     queryset = Roll_Return.objects.all()
     serializer_class = RollReturnSerializer
-    pagination_class = ReactAdminPagination
 
 
 class PaperFormatListView(generics.ListAPIView):
     queryset = Paper_Format.objects.all().order_by('format')
     serializer_class = PaperFormatSerializer
-    pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
                        RelatedOrderingFilter]
 
@@ -99,7 +91,6 @@ class PaperFormatListView(generics.ListAPIView):
 
 class PaperFormatDetailView(APIView):
     serializer_class = PaperFormatSerializer
-    pagination_class = ReactAdminPagination
 
     def get(self, request, pk):
         paper_format = Paper_Format.objects.get(pk=pk)
@@ -111,7 +102,6 @@ class PaperFormatDetailView(APIView):
 class PaperGrammageListView(generics.ListAPIView):
     queryset = Paper_Grammage.objects.all().order_by('grammage')
     serializer_class = PaperGrammageSerializer
-    pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
                        RelatedOrderingFilter]
 
@@ -120,7 +110,6 @@ class PaperGrammageListView(generics.ListAPIView):
 
 class PaperGrammageDetailView(APIView):
     serializer_class = PaperGrammageSerializer
-    pagination_class = ReactAdminPagination
 
     def get(self, request, pk):
         paper_grammage = Paper_Grammage.objects.get(pk=pk)
@@ -132,7 +121,6 @@ class PaperGrammageDetailView(APIView):
 class PaperProducerListView(generics.ListAPIView):
     queryset = Paper_Producer.objects.all()
     serializer_class = PaperProducerSerializer
-    pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
                        RelatedOrderingFilter]
 
@@ -141,7 +129,6 @@ class PaperProducerListView(generics.ListAPIView):
 
 class PaperProducerDetailView(APIView):
     serializer_class = PaperProducerSerializer
-    pagination_class = ReactAdminPagination
 
     def get(self, request, pk):
         paper_producer = Paper_Producer.objects.get(pk=pk)
@@ -153,7 +140,6 @@ class PaperProducerDetailView(APIView):
 class PaperTypesListView(generics.ListAPIView):
     queryset = Paper_Type.objects.all()
     serializer_class = PaperTypeSerializer
-    pagination_class = ReactAdminPagination
     filter_backends = [ReactAdminFilterBackend,
                        RelatedOrderingFilter]
 
@@ -162,18 +148,13 @@ class PaperTypesListView(generics.ListAPIView):
 
 class PaperTypesDetailView(APIView):
     serializer_class = PaperTypeSerializer
-    pagination_class = ReactAdminPagination
 
     def get(self, request, pk):
         paper_types = Paper_Type.objects.get(pk=pk)
         paper_producer_serializer = PaperTypeSerializer(paper_types)
         return Response(status=status.HTTP_200_OK,
                         data=paper_producer_serializer.data)
-#     def get(self, request):
-#         rolls = Roll.objects.all()
-#         rolls_serializer = RollSerializer(rolls, many=True)
-#         return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
-# #
+# OLD CODE
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":
 #         return make_paper_consume(pk, request_data['amount'])

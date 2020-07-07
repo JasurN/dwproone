@@ -1,12 +1,15 @@
 # pagination.py
 from collections import OrderedDict
+import django_filters
 from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
 import json
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel
+from rest_framework.pagination import PageNumberPagination
+
+from .models import Roll
 
 
 class ReactAdminPagination(PageNumberPagination):
@@ -123,3 +126,17 @@ class RelatedOrderingFilter(filters.OrderingFilter):
     def remove_invalid_fields(self, queryset, fields, ordering, view):
         return [term for term in fields
                 if self.is_valid_field(queryset.model, term.lstrip('-'))]
+
+
+class PageNumberWithPageSizePagination(PageNumberPagination):
+    page_size_query_param = 'page_size'
+
+
+class RollFilter(django_filters.FilterSet):
+    grammage = django_filters.NumberFilter(field_name='paper', lookup_expr="grammage_id__exact")
+    paper_format = django_filters.NumberFilter(field_name='paper', lookup_expr="paper_format_id__exact")
+    paper_company = django_filters.NumberFilter(field_name='paper', lookup_expr="company_id__exact")
+
+    class Meta:
+        model = Roll
+        fields = ["grammage", 'paper_format', 'paper_company']
