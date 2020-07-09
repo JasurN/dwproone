@@ -1,3 +1,9 @@
 Need to do features
 1. date filter for paper consumption
 2. change frontent2 to frontend
+
+website:
+1. email press open email
+2. phone number
+3. telegram when press phone
+4.

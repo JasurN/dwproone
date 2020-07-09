@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {
     List, Datagrid, TextField, NumberField, DateField,
-    Filter, TextInput, ReferenceInput, SelectInput,
+    Filter, ReferenceInput, SelectInput,
     BulkExportButton
 } from 'react-admin';
 import RollConsumeButton from "./RollConsumeButton";
