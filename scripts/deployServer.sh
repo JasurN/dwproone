@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ./frontend2 &&
+cd ./frontend &&
   npm install &&
   npm run build &&
   mkdir -p production &&

@@ -2,7 +2,7 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
-from .react_admin_utilities import ReactAdminFilterBackend, RelatedOrderingFilter, RollFilter
+from .filters import  RollFilter
 from rest_framework.response import Response
 
 from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \

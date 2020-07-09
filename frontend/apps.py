@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class FrontendConfig(AppConfig):
-    name = 'frontend2'
+    name = 'frontend'

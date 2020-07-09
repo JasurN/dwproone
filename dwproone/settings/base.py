@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     'warehouse',
     'sales',
-    'frontend2',
+    'frontend',
 
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'warehouse.react_admin_utilities.PageNumberWithPageSizePagination',
-    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'warehouse.filters.PageNumberWithPageSizePagination',
+    'PAGE_SIZE': 50,
     'DEFAULT_FILTER_BACKENDS': [
         'rest_framework.filters.OrderingFilter',
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -143,7 +143,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend2')
+REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend')
 
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
