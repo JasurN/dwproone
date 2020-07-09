@@ -20,7 +20,6 @@ class RollsListCreateView(generics.ListCreateAPIView):
     #                    filters.SearchFilter]
     # search_fields = ['roll_id', 'paper__paper_type__name', ]
     filterset_class = RollFilter
-    filterset_fields = ('grammage', 'paper_format')
     ordering_fields = '__all__'
 
     def create(self, request, *args, **kwargs):
@@ -56,7 +55,7 @@ class RollDetailView(APIView):
 class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
-    filter_backends = [ReactAdminFilterBackend, ]
+    ordering_fields = '__all__'
 
 
 class MakeRollConsumption(APIView):
@@ -73,18 +72,18 @@ class MakeRollConsumption(APIView):
 class RollsIncomeListView(generics.ListAPIView):
     queryset = Roll_Incoming.objects.all()
     serializer_class = RollIncomeSerializer
+    ordering_fields = '__all__'
 
 
 class RollsReturnListView(generics.ListAPIView):
     queryset = Roll_Return.objects.all()
     serializer_class = RollReturnSerializer
+    ordering_fields = '__all__'
 
 
 class PaperFormatListView(generics.ListAPIView):
     queryset = Paper_Format.objects.all().order_by('format')
     serializer_class = PaperFormatSerializer
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter]
 
     ordering_fields = '__all__'
 
@@ -102,8 +101,6 @@ class PaperFormatDetailView(APIView):
 class PaperGrammageListView(generics.ListAPIView):
     queryset = Paper_Grammage.objects.all().order_by('grammage')
     serializer_class = PaperGrammageSerializer
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter]
 
     ordering_fields = '__all__'
 
@@ -121,9 +118,6 @@ class PaperGrammageDetailView(APIView):
 class PaperProducerListView(generics.ListAPIView):
     queryset = Paper_Producer.objects.all()
     serializer_class = PaperProducerSerializer
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter]
-
     ordering_fields = '__all__'
 
 
@@ -140,9 +134,6 @@ class PaperProducerDetailView(APIView):
 class PaperTypesListView(generics.ListAPIView):
     queryset = Paper_Type.objects.all()
     serializer_class = PaperTypeSerializer
-    filter_backends = [ReactAdminFilterBackend,
-                       RelatedOrderingFilter]
-
     ordering_fields = '__all__'
 
 
@@ -218,7 +209,7 @@ class PaperTypesDetailView(APIView):
 #         return Response("GET PAPER/PK")
 #     elif request.method == 'POST':
 #         """
-#         """
+#         k"""
 #         paperTempObj = paper_operation(pk, request.data)
 #         return Response(PaperSerializer(paperTempObj).data)
 #
