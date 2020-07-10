@@ -1,13 +1,13 @@
 // in src/App.js
 import React from 'react';
 
+// @ts-ignore
 import {Admin, Resource} from 'react-admin';
 import CachedIcon from '@material-ui/icons/Cached';
 import LowPriorityIcon from '@material-ui/icons/LowPriority';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import GetAppIcon from '@material-ui/icons/GetApp';
-// import drfProvider from './dataprovider/index'
-import drfProvider, { tokenAuthProvider, fetchJsonWithAuthToken } from 'ra-data-django-rest-framework';
+import drfProvider, {tokenAuthProvider, fetchJsonWithAuthToken} from './dataprovider/index';
 
 import {RollsList} from "./components/warehouse/allRolls/RollsList";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -31,13 +31,14 @@ let Options = {
     obtainAuthTokenUrl: `${apiUrl}/api-token-auth/`
 };
 const authProvider = tokenAuthProvider(Options);
-
+//
 const dataProvider = drfProvider(`${apiUrl}/api`, fetchJsonWithAuthToken);
 const App = () => (
-    <Admin dataProvider={dataProvider}
-           dashboard={Dashboard}
-           authProvider={authProvider}
-           title="My Custom Admin">
+    <Admin
+        dataProvider={dataProvider}
+        dashboard={Dashboard}
+        authProvider={authProvider}
+        title="My Custom Admin">
         <Resource name={allRollsRoute}
                   options={{label: 'All Rolls'}}
                   list={RollsList}
