@@ -51,6 +51,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
+        'warehouse.filters.RelatedOrderingFilter'
+
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # SessionAuthentication is intentionally removed, see:

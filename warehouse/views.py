@@ -2,7 +2,7 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
-from .filters import  RollFilter
+from .filters import RollFilter,  RelatedOrderingFilter
 from rest_framework.response import Response
 
 from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
@@ -15,12 +15,8 @@ from .serializers import RollSerializer, RollConsumptionSerializer, \
 class RollsListCreateView(generics.ListCreateAPIView):
     queryset = Roll.objects.all().filter(current_weight__gt=0)
     serializer_class = RollSerializer
-    # filter_backends = [
-    #
-    #                    filters.SearchFilter]
-    # search_fields = ['roll_id', 'paper__paper_type__name', ]
     filterset_class = RollFilter
-    ordering_fields = '__all__'
+    ordering_fields = '__all_related__'
 
     def create(self, request, *args, **kwargs):
         roll_serializer = RollAddSerializer(data=request.data)
@@ -55,7 +51,7 @@ class RollDetailView(APIView):
 class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
-    ordering_fields = '__all__'
+    ordering_fields = '__all_related__'
 
 
 class MakeRollConsumption(APIView):
@@ -72,13 +68,13 @@ class MakeRollConsumption(APIView):
 class RollsIncomeListView(generics.ListAPIView):
     queryset = Roll_Incoming.objects.all()
     serializer_class = RollIncomeSerializer
-    ordering_fields = '__all__'
+    ordering_fields = '__all_related__'
 
 
 class RollsReturnListView(generics.ListAPIView):
     queryset = Roll_Return.objects.all()
     serializer_class = RollReturnSerializer
-    ordering_fields = '__all__'
+    ordering_fields = '__all_related__'
 
 
 class PaperFormatListView(generics.ListAPIView):

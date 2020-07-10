@@ -142,17 +142,26 @@ class Roll_Consumption(models.Model):
         help_text='Roll Status',
     )
 
+    class Meta:
+        ordering = ['id']
+
 
 class Roll_Incoming(models.Model):
     roll = models.ForeignKey(Roll, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['id']
+
 
 class Roll_Return(models.Model):
     roll = models.ForeignKey(Roll, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['id']
 
 # class Measure_unit(models.Model):
 #     name = models.CharField(max_length=10, help_text="Measurement unit kg or litre or ton")
