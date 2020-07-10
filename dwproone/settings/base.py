@@ -145,7 +145,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-REACT_APP_DIR = os.path.join(BASE_DIR, '../frontend')
+REACT_APP_DIR = os.path.join(BASE_DIR, '../../dw_frontend')
 
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'production'),
@@ -154,7 +154,9 @@ STATICFILES_DIRS = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
+    'http://localhost:8000',
     'http://localhost:3001',
-    'https://dwproone.uz'
+    'https://dwproone.uz',
     'https://www.dwproone.uz'
 )
+

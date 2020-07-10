@@ -1,10 +1,10 @@
 #!/bin/bash
 sudo touch emptyFile
-cd ./frontend &&
-  npm install &&
-  npm run build &&
-  mkdir -p production &&
-  cp -r build/* production/ &&
+cd ../dw_frontend &&
+  yarn install &&
+  yarn build &&
+  mkdir -p ~/dwproone/frontend/production/ &&
+  cp -r build/* ~/dwproone/frontend/production/ &&
   cd ~/dwproone &&
   pipenv install &&
   pipenv run python ~/dwproone/manage.py makemigrations &&
