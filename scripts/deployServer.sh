@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo touch emptyFile
 cd ./frontend &&
   npm install &&
   npm run build &&
