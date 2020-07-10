@@ -155,4 +155,6 @@ STATICFILES_DIRS = [
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:3001',
+    'https://dwproone.uz'
+    'https://www.dwproone.uz'
 )
