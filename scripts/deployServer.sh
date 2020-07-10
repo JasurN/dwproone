@@ -1,6 +1,8 @@
 #!/bin/bash
 sudo touch emptyFile
+git pull &&
 cd ../dw_frontend &&
+  git pull &&
   yarn install &&
   yarn build &&
   mkdir -p ~/dwproone/frontend/production/ &&
