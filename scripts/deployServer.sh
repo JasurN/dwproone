@@ -9,4 +9,4 @@ cd ./frontend &&
   pipenv run python ~/dwproone/manage.py makemigrations &&
   pipenv run python ~/dwproone/manage.py migrate &&
   pipenv run python ~/dwproone/manage.py collectstatic --noinput &&
-  sudo systemctl reload gunicorn
+  sudo systemctl restart gunicorn
