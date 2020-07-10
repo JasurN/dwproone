@@ -8,4 +8,3 @@ export const allPaperProducersRoute = 'warehouse/papers/producers';
 export const allPaperTypesRoute = 'warehouse/papers/types';
 
 export const devApiRoute = 'http://localhost:8000';
-export const productionApiRoute = 'https://dwproone.uz';

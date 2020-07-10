@@ -17,7 +17,7 @@ import {
     allRollsConsumptionRoute,
     allRollsIncomeRoute,
     allRollsReturnRoute,
-    allRollsRoute, productionApiRoute, allPaperTypesRoute
+    allRollsRoute,  allPaperTypesRoute
 } from "./dataprovider/apiRoutes";
 import {RollsConsumptionList} from "./components/warehouse/rollsConsumption/RollsConsumptionList";
 import {AddRoll} from "./components/warehouse/allRolls/AddRoll";
@@ -25,7 +25,7 @@ import {AddRoll} from "./components/warehouse/allRolls/AddRoll";
 
 let apiUrl = devApiRoute;
 if (process.env.NODE_ENV === 'production') {
-    apiUrl = productionApiRoute;
+    apiUrl = `${process.env.REACT_APP_DEV_API_ROUTE}`;
 }
 let Options = {
     obtainAuthTokenUrl: `${apiUrl}/api-token-auth/`
