@@ -2,7 +2,7 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
-from .filters import RollFilter,  RelatedOrderingFilter
+from .filters import RollFilter, RollConsumptionFilter
 from rest_framework.response import Response
 
 from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
@@ -51,6 +51,7 @@ class RollDetailView(APIView):
 class RollsConsumptionListView(generics.ListAPIView):
     queryset = Roll_Consumption.objects.all()
     serializer_class = RollConsumptionSerializer
+    filterset_class = RollConsumptionFilter
     ordering_fields = '__all_related__'
 
 

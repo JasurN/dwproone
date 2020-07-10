@@ -124,7 +124,9 @@ class RollFilter(django_filters.FilterSet):
 
 class RollConsumptionFilter(django_filters.FilterSet):
     grammage = django_filters.NumberFilter(field_name='roll', lookup_expr="paper__grammage_id__exact")
+    date_gte = django_filters.DateTimeFilter(field_name='date', lookup_expr='gte')
+    date_lte = django_filters.DateTimeFilter(field_name='date', lookup_expr='lte')
 
     class Meta:
         model = Roll_Consumption
-        fields = ["grammage", ]
+        fields = ["grammage", 'date_gte']
