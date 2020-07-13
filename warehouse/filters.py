@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Roll, Roll_Consumption
+from .models import Roll, Roll_Consumption, Roll_Incoming
 
 
 class PageNumberWithPageSizePagination(PageNumberPagination):
@@ -48,19 +48,19 @@ def filter_queryset_for_reference(queryset, key, value):
     return queryset.filter(**filter_params)
 
 
-class ReactAdminFilterBackend(DjangoFilterBackend):
-    def get_filterset_kwargs(self, request, queryset, view):
-        for key, value in request.query_params.items():
-            if key == "sort" and value:
-                queryset = sort_queryset(queryset, value)
-            elif key.endswith("__in"):
-                queryset = filter_queryset_for_multiple(queryset, key, value)
-            elif key.endswith("__isnull"):
-                queryset = filter_queryset_for_nullable(queryset, key, value)
-            elif "__" in key:
-                queryset = filter_queryset_for_reference(queryset, key, value)
-
-        return {"data": request.query_params, "queryset": queryset, "request": request}
+# class ReactAdminFilterBackend(DjangoFilterBackend):
+#     def get_filterset_kwargs(self, request, queryset, view):
+#         for key, value in request.query_params.items():
+#             if key == "sort" and value:
+#                 queryset = sort_queryset(queryset, value)
+#             elif key.endswith("__in"):
+#                 queryset = filter_queryset_for_multiple(queryset, key, value)
+#             elif key.endswith("__isnull"):
+#                 queryset = filter_queryset_for_nullable(queryset, key, value)
+#             elif "__" in key:
+#                 queryset = filter_queryset_for_reference(queryset, key, value)
+#
+#         return {"data": request.query_params, "queryset": queryset, "request": request}
 
 
 class RelatedOrderingFilter(filters.OrderingFilter):
@@ -129,4 +129,14 @@ class RollConsumptionFilter(django_filters.FilterSet):
 
     class Meta:
         model = Roll_Consumption
-        fields = ["grammage", 'date_gte']
+        fields = ["grammage", 'date_gte', 'date_lte']
+
+
+class RollIncomeFilter(django_filters.FilterSet):
+    grammage = django_filters.NumberFilter(field_name='roll', lookup_expr="paper__grammage_id__exact")
+    date_gte = django_filters.DateTimeFilter(field_name='date', lookup_expr='gte')
+    date_lte = django_filters.DateTimeFilter(field_name='date', lookup_expr='lte')
+
+    class Meta:
+        model = Roll_Incoming
+        fields = ["grammage", 'date_gte', 'date_lte']

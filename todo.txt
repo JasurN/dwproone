@@ -1,6 +1,14 @@
-Need to do features
-1. date filter for paper consumption
-2. change frontent2 to frontend
+frontend:
+0. edit view for rolls
+1. add rolls make easier
+2. list of roll with grammage, format
+3.
+
+backend:
+
+bugs:
+1. date time filter doesn't include this date
+
 
 website:
 1. email press open email

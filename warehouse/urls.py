@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import RollsListCreateView, RollDetailView, RollsConsumptionListView, \
     PaperFormatListView, PaperFormatDetailView, PaperGrammageListView, PaperGrammageDetailView, RollsIncomeListView, \
-    RollsReturnListView, MakeRollConsumption, PaperProducerListView, PaperProducerDetailView, PaperTypesListView, \
-    PaperTypesDetailView
+    RollsReturnListView, MakeRollProduction, PaperProducerListView, PaperProducerDetailView, PaperTypesListView, \
+    PaperTypesDetailView, RollsProductionListView
 
 app_name = 'warehouse'
 
@@ -13,7 +13,11 @@ urlpatterns = [
 
 urlpatterns += [
     path('rolls/consumption/', RollsConsumptionListView.as_view()),
-    path('rolls/consumption/<int:pk>/', MakeRollConsumption.as_view())
+]
+
+urlpatterns += [
+    path('rolls/production/', RollsProductionListView.as_view()),
+    path('rolls/production/<int:pk>/', MakeRollProduction.as_view())
 ]
 
 urlpatterns += [
