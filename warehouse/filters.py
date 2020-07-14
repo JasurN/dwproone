@@ -1,9 +1,9 @@
 import json
+from datetime import timedelta
 from typing import Tuple, List
 
 import django_filters
 from django.db import models
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
 
@@ -125,7 +125,11 @@ class RollFilter(django_filters.FilterSet):
 class RollConsumptionFilter(django_filters.FilterSet):
     grammage = django_filters.NumberFilter(field_name='roll', lookup_expr="paper__grammage_id__exact")
     date_gte = django_filters.DateTimeFilter(field_name='date', lookup_expr='gte')
-    date_lte = django_filters.DateTimeFilter(field_name='date', lookup_expr='lte')
+    date_lte = django_filters.DateTimeFilter(field_name='date', method='date_lte_plus_one_day')
+
+    def date_lte_plus_one_day(self, queryset, field_name, value):
+        date_gte_plus_one_day = value + timedelta(days=+1)
+        return queryset.filter(date__lte=date_gte_plus_one_day)
 
     class Meta:
         model = Roll_Consumption
@@ -135,7 +139,11 @@ class RollConsumptionFilter(django_filters.FilterSet):
 class RollIncomeFilter(django_filters.FilterSet):
     grammage = django_filters.NumberFilter(field_name='roll', lookup_expr="paper__grammage_id__exact")
     date_gte = django_filters.DateTimeFilter(field_name='date', lookup_expr='gte')
-    date_lte = django_filters.DateTimeFilter(field_name='date', lookup_expr='lte')
+    date_lte = django_filters.DateTimeFilter(field_name='date', method='date_lte_plus_one_day')
+
+    def date_lte_plus_one_day(self, queryset, field_name, value):
+        date_gte_plus_one_day = value + timedelta(days=+1)
+        return queryset.filter(date__lte=date_gte_plus_one_day)
 
     class Meta:
         model = Roll_Incoming

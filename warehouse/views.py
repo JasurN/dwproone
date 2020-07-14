@@ -88,6 +88,8 @@ class RollProductionDetailView(APIView):
             roll = get_object_or_404(Roll, pk=request.data.get('roll').get('id'))
             roll.current_weight = roll_left_amount
             roll_consumption.amount = roll_left_amount - roll_left_amount
+            roll_return = Roll_Return(roll=roll, amount=roll_left_amount)
+            roll_return.save()
             roll.save()
         roll_consumption.save()
 
