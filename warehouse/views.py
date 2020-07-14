@@ -36,7 +36,7 @@ class RollsListCreateView(generics.ListCreateAPIView):
         roll.save()
         roll_income.save()
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(data=RollSerializer(roll).data, status=status.HTTP_201_CREATED)
 
 
 class RollDetailView(APIView):
@@ -55,7 +55,19 @@ class RollsConsumptionListView(generics.ListAPIView):
     ordering_fields = '__all_related__'
 
 
-class MakeRollProduction(APIView):
+class RollsProductionListView(generics.ListAPIView):
+    queryset = Roll_Consumption.objects.filter(status='p')
+    serializer_class = RollConsumptionSerializer
+    filterset_class = RollConsumptionFilter
+    ordering_fields = '__all_related__'
+
+
+class RollProductionDetailView(APIView):
+    def get(self, request, pk):
+        roll = Roll_Consumption.objects.get(pk=pk)
+        rolls_serializer = RollConsumptionSerializer(roll)
+        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
+
     def put(self, request, pk):
         roll = Roll.objects.get(pk=pk)
         roll.current_weight = 0
@@ -64,13 +76,6 @@ class MakeRollProduction(APIView):
         roll.save()
         rolls_serializer = RollSerializer(roll)
         return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
-
-
-class RollsProductionListView(generics.ListAPIView):
-    queryset = Roll_Consumption.objects.filter(status='p')
-    serializer_class = RollConsumptionSerializer
-    filterset_class = RollConsumptionFilter
-    ordering_fields = '__all_related__'
 
 
 class RollsIncomeListView(generics.ListAPIView):
