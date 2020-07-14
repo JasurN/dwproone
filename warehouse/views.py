@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status, generics
 from rest_framework.views import APIView
 
@@ -75,7 +76,23 @@ class RollProductionDetailView(APIView):
         roll_consumption.save()
         roll.save()
         rolls_serializer = RollSerializer(roll)
-        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
+        return Response(data=rolls_serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self, request, pk):
+        roll_consumption_serializer = RollConsumptionSerializer(data=request.data)
+        roll_consumption_serializer.is_valid(raise_exception=True)
+        roll_consumption = Roll_Consumption.objects.get(pk=pk)
+        roll_consumption.status = 'c'
+        roll_left_amount = request.data.get('amount')
+        if 0 < roll_left_amount < roll_consumption.amount:
+            roll = get_object_or_404(Roll, pk=request.data.get('roll').get('id'))
+            roll.current_weight = roll_left_amount
+            roll_consumption.amount = roll_left_amount - roll_left_amount
+            roll.save()
+        roll_consumption.save()
+
+        return Response(data=RollConsumptionSerializer(roll_consumption).data,
+                        status=status.HTTP_200_OK)
 
 
 class RollsIncomeListView(generics.ListAPIView):
