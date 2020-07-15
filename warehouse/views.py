@@ -62,14 +62,7 @@ class RollsProductionListView(generics.ListAPIView):
     filterset_class = RollConsumptionFilter
     ordering_fields = '__all_related__'
 
-
-class RollProductionDetailView(APIView):
-    def get(self, request, pk):
-        roll = Roll_Consumption.objects.get(pk=pk)
-        rolls_serializer = RollConsumptionSerializer(roll)
-        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
-
-    def put(self, request, pk):
+    def patch(self, request, pk):
         roll = Roll.objects.get(pk=pk)
         roll.current_weight = 0
         roll_consumption = Roll_Consumption(roll=roll, amount=roll.initial_weight)
@@ -77,6 +70,13 @@ class RollProductionDetailView(APIView):
         roll.save()
         rolls_serializer = RollSerializer(roll)
         return Response(data=rolls_serializer.data, status=status.HTTP_200_OK)
+
+
+class RollProductionDetailView(APIView):
+    def get(self, request, pk):
+        roll = Roll_Consumption.objects.get(pk=pk)
+        rolls_serializer = RollConsumptionSerializer(roll)
+        return Response(status=status.HTTP_200_OK, data=rolls_serializer.data)
 
     def patch(self, request, pk):
         roll_consumption_serializer = RollConsumptionSerializer(data=request.data)
