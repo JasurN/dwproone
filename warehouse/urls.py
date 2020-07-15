@@ -13,6 +13,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('rolls/consumption/', RollsConsumptionListView.as_view()),
+    path('rolls/consumption/<int:pk>/', RollsProductionListView.as_view())
 
 ]
 
