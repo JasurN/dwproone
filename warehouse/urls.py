@@ -49,5 +49,4 @@ urlpatterns += [
 urlpatterns += [
     path('papers/types/', PaperTypesListView.as_view()),
     path('papers/types/<int:pk>/', PaperTypesDetailView.as_view()),
-
 ]
