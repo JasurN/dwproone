@@ -11,7 +11,9 @@ class CustomAuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
+        user_group_list = list(user.groups.values_list('name', flat=True))  # QuerySet to `list`
         return Response({
             'token': token.key,
+            'groups': user_group_list,
         })
 # Create your views here.
