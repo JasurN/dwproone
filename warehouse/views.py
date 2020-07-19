@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import get_object_or_404
 from rest_framework import status, generics
 from rest_framework.views import APIView
@@ -55,13 +57,6 @@ class RollsConsumptionListView(generics.ListAPIView):
     filterset_class = RollConsumptionFilter
     ordering_fields = '__all_related__'
 
-
-class RollsProductionListView(generics.ListAPIView):
-    queryset = Roll_Consumption.objects.filter(status='p')
-    serializer_class = RollConsumptionSerializer
-    filterset_class = RollConsumptionFilter
-    ordering_fields = '__all_related__'
-
     def patch(self, request, pk):
         roll = Roll.objects.get(pk=pk)
         roll.current_weight = 0
@@ -70,6 +65,13 @@ class RollsProductionListView(generics.ListAPIView):
         roll.save()
         rolls_serializer = RollSerializer(roll)
         return Response(data=rolls_serializer.data, status=status.HTTP_200_OK)
+
+
+class RollsProductionListView(generics.ListAPIView):
+    queryset = Roll_Consumption.objects.filter(status='p')
+    serializer_class = RollConsumptionSerializer
+    filterset_class = RollConsumptionFilter
+    ordering_fields = '__all_related__'
 
 
 class RollProductionDetailView(APIView):
@@ -83,11 +85,12 @@ class RollProductionDetailView(APIView):
         roll_consumption_serializer.is_valid(raise_exception=True)
         roll_consumption = Roll_Consumption.objects.get(pk=pk)
         roll_consumption.status = 'c'
+        roll_consumption.date = datetime.datetime.now()
         roll_left_amount = request.data.get('amount')
         if 0 < roll_left_amount < roll_consumption.amount:
             roll = get_object_or_404(Roll, pk=request.data.get('roll').get('id'))
             roll.current_weight = roll_left_amount
-            roll_consumption.amount = roll_left_amount - roll_left_amount
+            roll_consumption.amount = roll_consumption.amount - roll_left_amount
             roll_return = Roll_Return(roll=roll, amount=roll_left_amount)
             roll_return.save()
             roll.save()
