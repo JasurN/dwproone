@@ -1,6 +1,5 @@
-import datetime
-
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from rest_framework import status, generics
 from rest_framework.views import APIView
 
@@ -28,7 +27,7 @@ class RollsListCreateView(generics.ListCreateAPIView):
                                             grammage_id=roll_serializer.data['grammage_id'],
                                             paper_format_id=roll_serializer.data['format_id'],
                                             paper_type_id=roll_serializer.data['paper_type_id'])
-        roll_id, instance_number = get_roll_id_and_instance_number(paper[0].company_id, paper[0])
+        roll_id, instance_number = get_roll_id_and_instance_number(paper[0].company_id, paper)
         roll = Roll(roll_id=roll_id,
                     paper=paper[0],
                     instance_number=instance_number,
@@ -85,7 +84,7 @@ class RollProductionDetailView(APIView):
         roll_consumption_serializer.is_valid(raise_exception=True)
         roll_consumption = Roll_Consumption.objects.get(pk=pk)
         roll_consumption.status = 'c'
-        roll_consumption.date = datetime.datetime.now()
+        roll_consumption.date = timezone.now()
         roll_left_amount = request.data.get('amount')
         if 0 < roll_left_amount < roll_consumption.amount:
             roll = get_object_or_404(Roll, pk=request.data.get('roll').get('id'))
