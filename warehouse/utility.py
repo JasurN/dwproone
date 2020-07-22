@@ -20,7 +20,7 @@ def get_roll_id_and_instance_number(paper_producer_id, paper):
                f'{str(today.year)[-2:]}0{today.month}{instance_number}', \
                roll.instance_number + 1
     except IndexError:
-        return f'{paper_producer.short_name}{paper_format}{str(today.year)[-2:]}0{today.month}1', 1
+        return f'{paper_producer.short_name}{paper_format}{str(today.year)[-2:]}0{today.month}01', 1
 
 
 # in 900
