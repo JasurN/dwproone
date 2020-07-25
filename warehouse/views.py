@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import status, generics
+from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from .utility import get_roll_id_and_instance_number
@@ -176,6 +177,22 @@ class PaperTypesDetailView(APIView):
         paper_producer_serializer = PaperTypeSerializer(paper_types)
         return Response(status=status.HTTP_200_OK,
                         data=paper_producer_serializer.data)
+
+
+class RollTotalInfoListView(generics.ListAPIView):
+    pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+    serializer_class = RollSerializer
+    ordering_fields = '__all__'
+
+    def get(self, request, *args, **kwargs):
+        all_rolls = Roll.objects.all()
+        paginated_page = self.paginate_queryset(all_rolls)
+        if paginated_page is not None:
+            serializer = self.get_serializer(paginated_page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(all_rolls, many=True)
+        return Response(serializer.data)
 # OLD CODE
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":

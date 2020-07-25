@@ -1,4 +1,4 @@
-from .models import Paper_Producer, Roll, Paper
+from .models import Paper_Producer, Roll, Paper, Paper_Type, Paper_Format
 from datetime import datetime
 
 
@@ -34,8 +34,20 @@ def get_format_string_for_roll_id(paper_format):
         return f'0{paper_format}'
 
 
+# format instance
+# in 1-9 return 0(1-9)
+# in 10-99 return 10-99
 def get_instance_number(instance_number):
     if len(str(instance_number)) > 1:
         return instance_number
     else:
         return f'0{instance_number}'
+
+
+def get_total_roll_information():
+    all_paper_types = Paper_Type.objects.all()
+    all_paper_format = Paper_Format.objects.all()
+    all_rolls = Roll.objects.all()
+    # for paper_type in all_paper_types:
+    #     for paper_format in all_paper_format:
+
