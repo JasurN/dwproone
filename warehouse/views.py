@@ -4,7 +4,7 @@ from rest_framework import status, generics
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
-from .utility import get_roll_id_and_instance_number
+from .utility import get_roll_id_and_instance_number, get_total_roll_information
 from .filters import RollFilter, RollConsumptionFilter, RollIncomeFilter
 from rest_framework.response import Response
 
@@ -12,7 +12,7 @@ from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
     Roll_Incoming, Roll_Return, Paper_Producer, Paper_Type, Paper
 from .serializers import RollSerializer, RollConsumptionSerializer, \
     PaperFormatSerializer, PaperGrammageSerializer, RollIncomeSerializer, \
-    RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer
+    RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer, RollTotalSerializer
 
 
 class RollsListCreateView(generics.ListCreateAPIView):
@@ -181,16 +181,14 @@ class PaperTypesDetailView(APIView):
 
 class RollTotalInfoListView(generics.ListAPIView):
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
-    serializer_class = RollSerializer
-    ordering_fields = '__all__'
+    serializer_class = RollTotalSerializer
 
     def get(self, request, *args, **kwargs):
-        all_rolls = Roll.objects.all()
+        all_rolls = get_total_roll_information()
         paginated_page = self.paginate_queryset(all_rolls)
         if paginated_page is not None:
             serializer = self.get_serializer(paginated_page, many=True)
             return self.get_paginated_response(serializer.data)
-
         serializer = self.get_serializer(all_rolls, many=True)
         return Response(serializer.data)
 # OLD CODE

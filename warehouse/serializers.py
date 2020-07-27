@@ -86,6 +86,15 @@ class PaperTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper_Type
         fields = '__all__'
+
+
+class RollTotalSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    paper_format = serializers.IntegerField()
+    paper_type = serializers.CharField()
+    total_number_of_rolls = serializers.IntegerField()
+    total_weight_of_rolls = serializers.IntegerField()
+
 # class Paper_Consumption_Serializer(serializers.ModelSerializer):
 #     """
 
