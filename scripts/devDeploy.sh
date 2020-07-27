@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo touch emptyFile
 cd ../dw_frontend &&
   yarn install &&
   yarn build &&

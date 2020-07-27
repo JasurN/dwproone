@@ -14,55 +14,6 @@ class PageNumberWithPageSizePagination(PageNumberPagination):
     page_size_query_param = 'page_size'
 
 
-def sort_queryset(queryset, value):
-    try:
-        [field, order] = json.loads(value)
-    except json.decoder.JSONDecodeError:
-        return queryset
-
-    if field and order:
-        return queryset.order_by(f"-{field}" if order == "DESC" else field)
-
-    return queryset
-
-
-def filter_queryset_for_multiple(queryset, key, value):
-    filter_params = {key: value.split(",")}
-    return queryset.filter(**filter_params)
-
-
-def filter_queryset_for_nullable(queryset, key, value):
-    nullable = True if value == "true" else False if value == "false" else None
-
-    if nullable is None:
-        return queryset
-
-    filter_params = {key: nullable}
-    return queryset.filter(**filter_params)
-
-
-def filter_queryset_for_reference(queryset, key, value):
-    f = True if value == "true" else False if value == "false" else value
-
-    filter_params = {key: f}
-    return queryset.filter(**filter_params)
-
-
-# class ReactAdminFilterBackend(DjangoFilterBackend):
-#     def get_filterset_kwargs(self, request, queryset, view):
-#         for key, value in request.query_params.items():
-#             if key == "sort" and value:
-#                 queryset = sort_queryset(queryset, value)
-#             elif key.endswith("__in"):
-#                 queryset = filter_queryset_for_multiple(queryset, key, value)
-#             elif key.endswith("__isnull"):
-#                 queryset = filter_queryset_for_nullable(queryset, key, value)
-#             elif "__" in key:
-#                 queryset = filter_queryset_for_reference(queryset, key, value)
-#
-#         return {"data": request.query_params, "queryset": queryset, "request": request}
-
-
 class RelatedOrderingFilter(filters.OrderingFilter):
     _max_related_depth = 3
 
