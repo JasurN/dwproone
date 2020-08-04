@@ -5,7 +5,7 @@ from .views import RollsListCreateView, RollDetailView, RollsConsumptionListView
     PaperTypesDetailView, RollsProductionListView, RollTotalInfoListView
 
 app_name = 'warehouse'
-
+# api/warehouse/
 urlpatterns = [
     path('rolls/all/', RollsListCreateView.as_view()),
     path('rolls/all/<int:roll_id>/', RollDetailView.as_view()),

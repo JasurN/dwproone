@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from sales.models import Order
+from sales.serializers import AllOrdersSerializer
 
 
-@api_view(['GET'])
-def index(request):
-    return Response("Hello from sales")
+class AllOrdersListView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = AllOrdersSerializer
