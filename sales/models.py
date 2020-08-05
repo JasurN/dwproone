@@ -38,7 +38,7 @@ class Contract(models.Model):
 
 class Order(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
-    order_date = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateField()
     ship_date = models.DateField()
     box = models.ForeignKey(Box, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
