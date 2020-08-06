@@ -16,7 +16,7 @@ class Box(models.Model):
 
 
 class Customer(models.Model):
-    name = models.CharField(help_text='customer name', max_length=100)
+    name = models.CharField(help_text='customer name', max_length=100, unique=True)
 
     class Meta:
         ordering = ['id']
