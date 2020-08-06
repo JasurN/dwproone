@@ -10,14 +10,22 @@ class AllOrdersSerializer(serializers.ModelSerializer):
         depth = 3
 
 
-class AllBoxSerializer(serializers.ModelSerializer):
+class BoxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Box
         fields = '__all__'
         depth = 2
 
 
-class AllCustomerSerializer(serializers.ModelSerializer):
+class AddBoxSerializer(serializers.ModelSerializer):
+    customer_id = serializers.IntegerField(source='customer.id')
+
+    class Meta:
+        model = Box
+        fields = ['customer_id', 'length', 'width', 'height', 'configuration']
+
+
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
