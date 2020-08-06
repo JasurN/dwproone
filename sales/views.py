@@ -1,5 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from sales.models import Order, Box, Customer
 from sales.serializers import AllOrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer
@@ -36,3 +37,13 @@ class AllCustomerListView(generics.ListCreateAPIView):
         customer = Customer.objects.create(name=customer_serializer.data.get('name'))
         customer.save()
         return Response(data=CustomerSerializer(customer).data, status=status.HTTP_201_CREATED)
+
+
+class CustomerDetailView(APIView):
+    serializer_class = CustomerSerializer
+
+    def get(self, request, pk):
+        customer = Customer.objects.get(pk=pk)
+        customer_serializer = CustomerSerializer(customer)
+        return Response(status=status.HTTP_200_OK,
+                        data=customer_serializer.data)
