@@ -48,6 +48,10 @@ def get_instance_number(instance_number):
         return f'0{instance_number}'
 
 
+# paper total number of rolls and weight by paper type and paper format
+# get all paper type and paper format
+# iterate over each, counting total number of rolls and their weight
+# if no roll with paper type and format it assigns to 0
 def get_total_roll_information():
     all_paper_types = Paper_Type.objects.all()
     all_paper_format = Paper_Format.objects.all()
