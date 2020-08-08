@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from sales.models import Order, Box, Customer, Contract
-from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer
+from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
+    AddOrderSerializer
 
 
 class OrdersListView(generics.ListCreateAPIView):
@@ -11,7 +12,17 @@ class OrdersListView(generics.ListCreateAPIView):
     serializer_class = OrdersSerializer
 
     def create(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_201_CREATED)
+        order_serializer = AddOrderSerializer(data=request.data)
+        order_serializer.is_valid(raise_exception=True)
+        order = Order.objects.create(contract_id=order_serializer.data.get('contract_id'),
+                                     box_id=order_serializer.data.get('box_id'),
+                                     order_date=order_serializer.data.get('order_date'),
+                                     ship_date=order_serializer.data.get('ship_date'),
+                                     quantity=order_serializer.data.get('quantity'),
+                                     remaining=order_serializer.data.get('quantity'),
+                                     delivered=0)
+        order.save()
+        return Response(data=OrdersSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
 class BoxListView(generics.ListCreateAPIView):
@@ -28,6 +39,16 @@ class BoxListView(generics.ListCreateAPIView):
                                  customer_id=box_serializer.data.get('customer_id'))
         box.save()
         return Response(data=BoxSerializer(box).data, status=status.HTTP_201_CREATED)
+
+
+class BoxDetailView(APIView):
+    serializer_class = BoxSerializer
+
+    def get(self, request, pk):
+        box = Box.objects.get(pk=pk)
+        box_serializer = BoxSerializer(box)
+        return Response(status=status.HTTP_200_OK,
+                        data=box_serializer.data)
 
 
 class CustomerListView(generics.ListCreateAPIView):

@@ -10,6 +10,15 @@ class OrdersSerializer(serializers.ModelSerializer):
         depth = 3
 
 
+class AddOrderSerializer(serializers.ModelSerializer):
+    contract_id = serializers.IntegerField(source='contract.id')
+    box_id = serializers.IntegerField(source='box.id')
+
+    class Meta:
+        model = Order
+        fields = ['contract_id', 'box_id', 'order_date', 'ship_date', 'quantity']
+
+
 class BoxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Box
