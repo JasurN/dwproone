@@ -1,19 +1,26 @@
 from django.urls import path
 
-from .views import AllOrdersListView, AllBoxListView, AllCustomerListView, CustomerDetailView
+from .views import OrdersListView, BoxListView, CustomerListView, CustomerDetailView, ContractListView, \
+    ContractDetailView, BoxDetailView
 
 app_name = 'sales'
 # api/sales/
 urlpatterns = [
-    path('orders/all/', AllOrdersListView.as_view()),
+    path('orders/all/', OrdersListView.as_view()),
 
 ]
 
 urlpatterns += [
-    path('box/all/', AllBoxListView.as_view()),
+    path('box/all/', BoxListView.as_view()),
+    path('box/all/<int:pk>/', BoxDetailView.as_view())
 ]
 
 urlpatterns += [
-    path('customer/all/', AllCustomerListView.as_view()),
+    path('customer/all/', CustomerListView.as_view()),
     path('customer/all/<int:pk>/', CustomerDetailView.as_view())
+]
+
+urlpatterns += [
+    path('contract/all/', ContractListView.as_view()),
+    path('contract/all/<int:pk>/', ContractDetailView.as_view())
 ]

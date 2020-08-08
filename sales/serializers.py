@@ -1,13 +1,22 @@
 from rest_framework import serializers
 
-from sales.models import Order, Box, Customer
+from sales.models import Order, Box, Customer, Contract
 
 
-class AllOrdersSerializer(serializers.ModelSerializer):
+class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
         depth = 3
+
+
+class AddOrderSerializer(serializers.ModelSerializer):
+    contract_id = serializers.IntegerField(source='contract.id')
+    box_id = serializers.IntegerField(source='box.id')
+
+    class Meta:
+        model = Order
+        fields = ['contract_id', 'box_id', 'order_date', 'ship_date', 'quantity']
 
 
 class BoxSerializer(serializers.ModelSerializer):
@@ -28,5 +37,12 @@ class AddBoxSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
+        fields = '__all__'
+        depth = 2
+
+
+class ContractSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
         fields = '__all__'
         depth = 2
