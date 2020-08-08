@@ -2,16 +2,19 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sales.models import Order, Box, Customer
-from sales.serializers import AllOrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer
+from sales.models import Order, Box, Customer, Contract
+from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer
 
 
-class AllOrdersListView(generics.ListCreateAPIView):
+class OrdersListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
-    serializer_class = AllOrdersSerializer
+    serializer_class = OrdersSerializer
+
+    def create(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_201_CREATED)
 
 
-class AllBoxListView(generics.ListCreateAPIView):
+class BoxListView(generics.ListCreateAPIView):
     queryset = Box.objects.all()
     serializer_class = BoxSerializer
 
@@ -27,7 +30,7 @@ class AllBoxListView(generics.ListCreateAPIView):
         return Response(data=BoxSerializer(box).data, status=status.HTTP_201_CREATED)
 
 
-class AllCustomerListView(generics.ListCreateAPIView):
+class CustomerListView(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
@@ -47,3 +50,21 @@ class CustomerDetailView(APIView):
         customer_serializer = CustomerSerializer(customer)
         return Response(status=status.HTTP_200_OK,
                         data=customer_serializer.data)
+
+
+class ContractListView(generics.ListCreateAPIView):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+
+    def create(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class ContractDetailView(APIView):
+    serializer_class = CustomerSerializer
+
+    def get(self, request, pk):
+        contract = Contract.objects.get(pk=pk)
+        contract = ContractSerializer(contract)
+        return Response(status=status.HTTP_200_OK,
+                        data=contract.data)

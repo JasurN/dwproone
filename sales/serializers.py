@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from sales.models import Order, Box, Customer
+from sales.models import Order, Box, Customer, Contract
 
 
-class AllOrdersSerializer(serializers.ModelSerializer):
+class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
@@ -28,5 +28,12 @@ class AddBoxSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
+        fields = '__all__'
+        depth = 2
+
+
+class ContractSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
         fields = '__all__'
         depth = 2
