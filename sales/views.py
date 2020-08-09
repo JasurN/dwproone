@@ -38,10 +38,10 @@ class OrderDetailView(APIView):
         order_serializer = OrdersSerializer(data=request.data)
         order_serializer.is_valid(raise_exception=True)
         order = Order.objects.get(pk=pk)
-        if order_serializer.data.get('delivered') > order.remaining:
+        if request.data.get('delivered_amount') > order.remaining:
             return Response(data={'error': 'delivered is more than remaining'}, status=status.HTTP_400_BAD_REQUEST)
-        order.remaining = order_serializer.data.get('delivered')
-        order.delivered = order_serializer.data.get('delivered')
+        order.remaining = order.remaining - request.data.get('delivered_amount')
+        order.delivered = order.delivered + request.data.get('delivered_amount')
         order.save()
         return Response(data=OrdersSerializer(order).data,
                         status=status.HTTP_200_OK)
