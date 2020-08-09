@@ -25,6 +25,28 @@ class OrdersListView(generics.ListCreateAPIView):
         return Response(data=OrdersSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
+class OrderDetailView(APIView):
+    serializer_class = OrdersSerializer
+
+    def get(self, request, pk):
+        order = Order.objects.get(pk=pk)
+        order_serializer = OrdersSerializer(order)
+        return Response(status=status.HTTP_200_OK,
+                        data=order_serializer.data)
+
+    def patch(self, request, pk):
+        order_serializer = OrdersSerializer(data=request.data)
+        order_serializer.is_valid(raise_exception=True)
+        order = Order.objects.get(pk=pk)
+        if order_serializer.data.get('delivered') > order.remaining:
+            return Response(data={'error': 'delivered is more than remaining'}, status=status.HTTP_400_BAD_REQUEST)
+        order.remaining = order_serializer.data.get('delivered')
+        order.delivered = order_serializer.data.get('delivered')
+        order.save()
+        return Response(data=OrdersSerializer(order).data,
+                        status=status.HTTP_200_OK)
+
+
 class BoxListView(generics.ListCreateAPIView):
     queryset = Box.objects.all()
     serializer_class = BoxSerializer
