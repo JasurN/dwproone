@@ -7,6 +7,7 @@ class Box(models.Model):
     width = models.PositiveSmallIntegerField(help_text='box width')
     height = models.PositiveSmallIntegerField(help_text='box height')
     configuration = models.CharField(max_length=10, help_text='box configuration, KSS SSS KSSSK')
+    dimension = models.CharField(max_length=20, help_text='box dimension length*width*height', default='1000x1000x1000')
 
     class Meta:
         ordering = ['id']

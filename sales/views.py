@@ -55,11 +55,14 @@ class BoxListView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         box_serializer = AddBoxSerializer(data=request.data)
         box_serializer.is_valid(raise_exception=True)
+        dimension = f"{box_serializer.data.get('length')}x" \
+                    f"{box_serializer.data.get('width')}x{box_serializer.data.get('height')}"
         box = Box.objects.create(length=box_serializer.data.get('length'),
                                  width=box_serializer.data.get('width'),
                                  height=box_serializer.data.get('height'),
                                  configuration=box_serializer.data.get('configuration'),
-                                 customer_id=box_serializer.data.get('customer_id'))
+                                 customer_id=box_serializer.data.get('customer_id'),
+                                 dimension=dimension)
         box.save()
         return Response(data=BoxSerializer(box).data, status=status.HTTP_201_CREATED)
 
