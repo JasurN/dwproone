@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import OrdersListView, BoxListView, CustomerListView, CustomerDetailView, ContractListView, \
+from .views import OrdersListView, BoxListView, CustomerListView, CustomerDetailView, ContractListCreateView, \
     ContractDetailView, BoxDetailView, OrderDetailView
 
 app_name = 'sales'
@@ -21,6 +21,6 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('contract/all/', ContractListView.as_view()),
+    path('contract/all/', ContractListCreateView.as_view()),
     path('contract/all/<int:pk>/', ContractDetailView.as_view())
 ]
