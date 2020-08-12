@@ -28,7 +28,8 @@ class Customer(models.Model):
 
 class Contract(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    contract_number = models.CharField(max_length=200, help_text='contract number DPC LB 190503')
+    contract_number = models.CharField(max_length=200, help_text='contract number DPC LB 190503',
+                                       unique=True)
 
     class Meta:
         ordering = ['id']

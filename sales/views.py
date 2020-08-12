@@ -99,12 +99,17 @@ class CustomerDetailView(APIView):
                         data=customer_serializer.data)
 
 
-class ContractListView(generics.ListCreateAPIView):
+class ContractListCreateView(generics.ListCreateAPIView):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
 
     def create(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_201_CREATED)
+        contract_serializer = ContractSerializer(data=request.data)
+        contract_serializer.is_valid(raise_exception=True)
+        contract = Contract.objects.create(customer_id=request.data.get('customer_id'),
+                                           contract_number=request.data.get('contract_number'))
+        contract.save()
+        return Response(data=ContractSerializer(contract).data, status=status.HTTP_201_CREATED)
 
 
 class ContractDetailView(APIView):
