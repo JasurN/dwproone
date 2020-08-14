@@ -5,3 +5,5 @@
 
 /.env
 /emptyFile
+/.coverage
+/htmlcov/
