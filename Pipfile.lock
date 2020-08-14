@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1d251882a69bc8f6356bc38981f5154f4a4d9d9e415cdd8dfadd39de7ad75cd4"
+            "sha256": "79a7683774cc4331a3fe51c176de443a7bcbc8fde50328796fd37d15a13df38e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -107,15 +107,6 @@
             "index": "pypi",
             "version": "==2.2.0"
         },
-        "django-rest-knox": {
-            "hashes": [
-                "sha256:4a57b05b04fcccc41fcc969ad0e3f180467d7045b45003b58f5a437d6d3370d4",
-                "sha256:e4ac93e6d7dd63af5b58ff19d7f197788a874e932464d77db5630f185365eac0",
-                "sha256:f7dac2f7a6ece7c1bd331bdb01dc3d16e0b340f3d1001a7285cc13b171d539a3"
-            ],
-            "index": "pypi",
-            "version": "==4.1.0"
-        },
         "djangorestframework": {
             "hashes": [
                 "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4",
@@ -139,6 +130,14 @@
             ],
             "index": "pypi",
             "version": "==3.1.0"
+        },
+        "model-bakery": {
+            "hashes": [
+                "sha256:320d9e78fad1605a08bfb93affae42ba027300e2e973a235e12b102f78e97f7d",
+                "sha256:e2f0522a4b7d3cc1b6f88e95ac87cefd9317516274bb126f54488f47fe3aaafd"
+            ],
+            "index": "pypi",
+            "version": "==1.1.1"
         },
         "psycopg2": {
             "hashes": [

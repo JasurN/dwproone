@@ -1,6 +1,7 @@
 #!/bin/bash
 sudo touch emptyFile
 git pull &&
+pipenv run python manage.py test &&
 cd ../dw_frontend &&
   git pull &&
   yarn install &&

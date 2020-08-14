@@ -1,4 +1,5 @@
 #!/bin/bash
+pipenv run python manage.py test &&
 cd ../dw_frontend &&
   yarn install &&
   yarn build &&
