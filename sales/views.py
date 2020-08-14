@@ -48,7 +48,7 @@ class OrderDetailView(APIView):
                         status=status.HTTP_200_OK)
 
 
-class BoxListView(generics.ListCreateAPIView):
+class BoxListCreateView(generics.ListCreateAPIView):
     queryset = Box.objects.all()
     serializer_class = BoxSerializer
 
