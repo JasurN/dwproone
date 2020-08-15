@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory, force_authenticate
 
-from sales.models import Order, Customer, Box, Contract
 from sales.tests.sales_test_utilites import create_customers, create_user, create_boxes, create_contract, create_order
 from sales.views import CustomerListView, BoxListCreateView, ContractListCreateView, OrdersListView
 
