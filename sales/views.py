@@ -8,7 +8,7 @@ from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerialize
 
 
 class OrdersListView(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.filter(remaining__gt=0)
     serializer_class = OrdersSerializer
 
     def create(self, request, *args, **kwargs):
