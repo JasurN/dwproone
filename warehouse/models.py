@@ -1,6 +1,8 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+from sales.models import Order
+
 
 class Paper_Producer(models.Model):
     name = models.CharField(help_text="raw material producer company name", max_length=150, unique=True)
@@ -131,6 +133,7 @@ class Roll_Consumption(models.Model):
     roll = models.ForeignKey(Roll, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     ROLL_STATUS = (
         ('p', 'production'),
         ('c', 'consumed'),
