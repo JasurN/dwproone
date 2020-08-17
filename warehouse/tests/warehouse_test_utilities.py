@@ -1,4 +1,4 @@
-from warehouse.models import Paper_Format, Paper_Grammage, Paper_Type
+from warehouse.models import Paper_Format, Paper_Grammage, Paper_Type, Paper_Producer
 
 
 def create_paper_formats(count):
@@ -26,3 +26,13 @@ def create_paper_grammage(count):
 def create_paper_types():
     return [Paper_Type.objects.create(name='KLB', code='K', description='Cellulose paper'),
             Paper_Type.objects.create(name='CMP', code='S', description='Local paper')]
+
+
+def create_paper_producers(count):
+    paper_producers = []
+    for counter in range(count):
+        paper_producers.append(
+            Paper_Producer.objects.create(name=f'Producer {counter}',
+                                          short_name=f'Prd {counter}')
+        )
+    return paper_producers
