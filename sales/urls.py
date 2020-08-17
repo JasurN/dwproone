@@ -25,6 +25,6 @@ urlpatterns += [
     path('contract/all/<int:pk>/', ContractDetailView.as_view())
 ]
 
-urlpatterns = [
+urlpatterns += [
     path('orders/delivery/all/', OrderDeliveryListView.as_view()),
 ]
