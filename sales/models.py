@@ -54,3 +54,9 @@ class Order(models.Model):
         return f"{self.contract.customer} {self.contract.contract_number} " \
                f"{self.box.length}x{self.box.width}x{self.box.height} {self.box.configuration} " \
                f"{self.ship_date} {self.quantity} {self.remaining} {self.delivered}"
+
+
+class OrderDelivery(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    amount = models.PositiveSmallIntegerField(default=0)
+    date = models.DateField(auto_now_add=True)

@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sales.models import Order, Box, Customer, Contract
+from sales.models import Order, Box, Customer, Contract, OrderDelivery
 from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
     AddOrderSerializer
 
@@ -43,6 +43,8 @@ class OrderDetailView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
         order.remaining = order.remaining - request.data.get('delivered_amount')
         order.delivered = order.delivered + request.data.get('delivered_amount')
+        OrderDelivery.objects.create(order=order,
+                                     amount=request.data.get('delivered_amount'))
         order.save()
         return Response(data=OrdersSerializer(order).data,
                         status=status.HTTP_200_OK)
