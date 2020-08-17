@@ -87,6 +87,7 @@ class RollProductionDetailView(APIView):
         roll_consumption = Roll_Consumption.objects.get(pk=pk)
         roll_consumption.status = 'c'
         roll_consumption.date = timezone.now()
+        roll_consumption.order_id = request.data.get('order_id')
         roll_left_amount = request.data.get('amount')
         if 0 < roll_left_amount < roll_consumption.amount:
             roll = get_object_or_404(Roll, pk=request.data.get('roll').get('id'))
