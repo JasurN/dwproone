@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from sales.models import Order, Box, Customer, Contract
+from sales.models import Order, Box, Customer, Contract, OrderDelivery
 
 
 class OrdersSerializer(serializers.ModelSerializer):
@@ -46,3 +46,10 @@ class ContractSerializer(serializers.ModelSerializer):
         model = Contract
         fields = '__all__'
         depth = 2
+
+
+class OrderDeliverySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDelivery
+        fields = '__all__'
+        depth = 3
