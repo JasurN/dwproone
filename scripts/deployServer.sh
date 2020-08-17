@@ -9,7 +9,7 @@ cd ../dw_frontend &&
   cp -r build/* ~/dwproone/frontend/production/ &&
   cd ~/dwproone &&
   pipenv install &&
-  pipenv run python ~/dwproone/manage.py migrate &&
-  pipenv run python ~/dwproone/manage.py.py test &&
-  pipenv run python ~/dwproone/manage.py collectstatic --noinput &&
+  pipenv run python manage.py migrate &&
+  pipenv run python manage.py.py test &&
+  pipenv run python manage.py collectstatic --noinput &&
   sudo systemctl restart gunicorn
