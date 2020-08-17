@@ -12,7 +12,8 @@ from .models import Roll, Roll_Consumption, Paper_Format, Paper_Grammage, \
     Roll_Incoming, Roll_Return, Paper_Producer, Paper_Type, Paper
 from .serializers import RollSerializer, RollConsumptionSerializer, \
     PaperFormatSerializer, PaperGrammageSerializer, RollIncomeSerializer, \
-    RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer, RollTotalSerializer
+    RollReturnSerializer, PaperProducerSerializer, RollAddSerializer, PaperTypeSerializer, RollTotalSerializer, \
+    PaperSerializer
 
 
 class RollsListCreateView(generics.ListCreateAPIView):
@@ -191,6 +192,12 @@ class RollTotalInfoListView(generics.ListAPIView):
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(all_rolls, many=True)
         return Response(serializer.data)
+
+
+class PaperListView(generics.ListAPIView):
+    queryset = Paper.objects.all()
+    serializer_class = PaperSerializer
+    ordering_fields = '__all__'
 # OLD CODE
 # def paper_operation(pk, request_data):
 #     if request_data['operation_type'] == "consume":
