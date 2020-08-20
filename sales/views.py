@@ -21,6 +21,11 @@ class OrdersListView(generics.ListCreateAPIView):
                                      ship_date=order_serializer.data.get('ship_date'),
                                      quantity=order_serializer.data.get('quantity'),
                                      remaining=order_serializer.data.get('quantity'),
+                                     corrugator=request.data.get('corrugator', False),
+                                     flex=request.data.get('flex', False),
+                                     thompson=request.data.get('thompson', False),
+                                     glue=request.data.get('glue', False),
+                                     stitching=request.data.get('stitching', False),
                                      delivered=0)
         order.save()
         return Response(data=OrdersSerializer(order).data, status=status.HTTP_201_CREATED)

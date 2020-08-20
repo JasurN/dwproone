@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'warehouse',
     'sales',
     'frontend',
-
+    'production'
 ]
 
 REST_FRAMEWORK = {
@@ -159,4 +159,3 @@ CORS_ORIGIN_WHITELIST = (
     'https://dwproone.uz',
     'https://www.dwproone.uz'
 )
-
