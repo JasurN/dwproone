@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sales.filters import OrderDeliveryFilter
+from sales.filters import OrderDeliveryFilter, OrderFilter
 from sales.models import Order, Box, Customer, Contract, OrderDelivery
 from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
     AddOrderSerializer, OrderDeliverySerializer
@@ -11,6 +11,7 @@ from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerialize
 class OrdersListView(generics.ListCreateAPIView):
     queryset = Order.objects.filter(remaining__gt=0)
     serializer_class = OrdersSerializer
+    filterset_class = OrderFilter
 
     def create(self, request, *args, **kwargs):
         order_serializer = AddOrderSerializer(data=request.data)
@@ -33,6 +34,7 @@ class OrdersListView(generics.ListCreateAPIView):
 
 class OrderDetailView(APIView):
     serializer_class = OrdersSerializer
+    filterset_class = OrderFilter
 
     def get(self, request, pk):
         order = Order.objects.get(pk=pk)
