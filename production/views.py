@@ -1,6 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 
+from production.filters import ProductionFilter
 from production.models import Production
 from production.serializers import ProductionSerializer, AddProductionSerializer
 
@@ -8,6 +9,7 @@ from production.serializers import ProductionSerializer, AddProductionSerializer
 class ProductionListCreateView(generics.ListCreateAPIView):
     queryset = Production.objects.all()
     serializer_class = ProductionSerializer
+    filterset_class = ProductionFilter
 
     def create(self, request, *args, **kwargs):
         production_serializer = AddProductionSerializer(data=request.data)
