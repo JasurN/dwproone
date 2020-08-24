@@ -5,6 +5,7 @@ from sales.models import Order
 
 class Production(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    production_order = models.PositiveSmallIntegerField(default=1)
     scheduled_date = models.DateField()
     final_producer_amount = models.PositiveSmallIntegerField(default=0)
     corrugator_amount = models.PositiveSmallIntegerField(default=0)
