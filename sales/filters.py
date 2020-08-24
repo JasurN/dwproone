@@ -2,7 +2,7 @@ from datetime import timedelta
 
 import django_filters
 
-from sales.models import OrderDelivery, Order
+from sales.models import OrderDelivery, Order, Box
 
 
 class OrderDeliveryFilter(django_filters.FilterSet):
@@ -24,4 +24,12 @@ class OrderFilter(django_filters.FilterSet):
 
     class Meta:
         model = Order
+        fields = ['customer']
+
+
+class BoxFilter(django_filters.FilterSet):
+    customer = django_filters.NumberFilter(field_name='customer', lookup_expr="id__exact")
+
+    class Meta:
+        model = Box
         fields = ['customer']

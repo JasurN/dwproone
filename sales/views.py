@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sales.filters import OrderDeliveryFilter, OrderFilter
+from sales.filters import OrderDeliveryFilter, OrderFilter, BoxFilter
 from sales.models import Order, Box, Customer, Contract, OrderDelivery
 from sales.serializers import OrderSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
     AddOrderSerializer, OrderDeliverySerializer
@@ -61,6 +61,7 @@ class OrderDetailView(APIView):
 class BoxListCreateView(generics.ListCreateAPIView):
     queryset = Box.objects.all()
     serializer_class = BoxSerializer
+    filterset_class = BoxFilter
 
     def create(self, request, *args, **kwargs):
         box_serializer = AddBoxSerializer(data=request.data)
