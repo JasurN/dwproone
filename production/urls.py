@@ -1,11 +1,9 @@
 from django.urls import path
 
-from production.views import CorrugatorListView
+from production.views import ProductionListCreateView
 
 app_name = 'production'
-# api/sales/
+# api/production/
 urlpatterns = [
-    path('corrugators/', CorrugatorListView.as_view()),
-
+    path('', ProductionListCreateView.as_view()),
 ]
-

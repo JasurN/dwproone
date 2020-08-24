@@ -1,13 +1,25 @@
 from rest_framework import generics
 
+from production.models import Production
+from production.serializers import ProductionSerializer
 
-class CorrugatorListView(generics.ListCreateAPIView):
+
+class ProductionListCreateView(generics.ListCreateAPIView):
+    queryset = Production.objects.all()
+    serializer_class = ProductionSerializer
+
+
+class CorrugatorHistoryListCreateView(generics.ListCreateAPIView):
     pass
 
 
-class FlexListView(generics.ListCreateAPIView):
+class FlexHistoryListCreateView(generics.ListCreateAPIView):
     pass
 
 
-class ThompsonListView(generics.ListCreateAPIView):
+class ThompsonHistoryListCreateView(generics.ListCreateAPIView):
+    pass
+
+
+class GlueHistoryListCreateView(generics.ListCreateAPIView):
     pass
