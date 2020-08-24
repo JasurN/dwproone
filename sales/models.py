@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Box(models.Model):
-    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    customer = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True)
     length = models.PositiveSmallIntegerField(help_text='box length')
     width = models.PositiveSmallIntegerField(help_text='box width')
     height = models.PositiveSmallIntegerField(help_text='box height')
@@ -27,7 +27,7 @@ class Customer(models.Model):
 
 
 class Contract(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     contract_number = models.CharField(max_length=200, help_text='contract number DPC LB 190503',
                                        unique=True)
 
@@ -39,10 +39,10 @@ class Contract(models.Model):
 
 
 class Order(models.Model):
-    contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    contract = models.ForeignKey(Contract, on_delete=models.SET_NULL, null=True)
     order_date = models.DateField()
     ship_date = models.DateField()
-    box = models.ForeignKey(Box, on_delete=models.CASCADE)
+    box = models.ForeignKey(Box, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveSmallIntegerField(default=0)
     remaining = models.PositiveSmallIntegerField()
     delivered = models.PositiveSmallIntegerField()
