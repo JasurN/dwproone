@@ -4,7 +4,7 @@ from sales.models import Order
 
 
 class Production(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     production_order = models.PositiveSmallIntegerField(default=1)
     scheduled_date = models.DateField()
     final_producer_amount = models.PositiveSmallIntegerField(default=0)

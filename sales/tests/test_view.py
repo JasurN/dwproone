@@ -3,7 +3,7 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from sales.tests.sales_test_utilites import create_customers, create_user, create_boxes, create_contract, create_order
-from sales.views import CustomerListView, BoxListCreateView, ContractListCreateView, OrdersListView
+from sales.views import CustomerListView, BoxListCreateView, ContractListCreateView, OrderListView
 
 
 class CustomerListViewTestCase(TestCase):
@@ -110,7 +110,7 @@ class OrderListViewTestCase(TestCase):
         factory = APIRequestFactory()
         user = User.objects.get(username='testuser1')
         request = factory.get('/api/sales/orders/all/')
-        view = OrdersListView.as_view()
+        view = OrderListView.as_view()
         force_authenticate(request, user=user)
         response = view(request)
         self.assertEqual(response.status_code, 200)
@@ -119,7 +119,7 @@ class OrderListViewTestCase(TestCase):
         factory = APIRequestFactory()
         user = User.objects.get(username='testuser1')
         request = factory.get('/api/sales/orders/all/')
-        view = OrdersListView.as_view()
+        view = OrderListView.as_view()
         force_authenticate(request, user=user)
         response = view(request)
         self.assertEqual(response.data['count'], 10)

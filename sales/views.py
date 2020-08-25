@@ -8,7 +8,7 @@ from sales.serializers import OrderSerializer, BoxSerializer, CustomerSerializer
     AddOrderSerializer, OrderDeliverySerializer
 
 
-class OrdersListView(generics.ListCreateAPIView):
+class OrderListView(generics.ListCreateAPIView):
     queryset = Order.objects.filter(remaining__gt=0)
     serializer_class = OrderSerializer
     filterset_class = OrderFilter
@@ -27,7 +27,6 @@ class OrdersListView(generics.ListCreateAPIView):
                                      glue=request.data.get('glue', False),
                                      stitching=request.data.get('stitching', False),
                                      delivered=0)
-        order.save()
         return Response(data=OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
