@@ -46,7 +46,6 @@ class Order(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     remaining = models.PositiveSmallIntegerField()
     delivered = models.PositiveSmallIntegerField()
-    corrugator = models.BooleanField(default=False)
     flex = models.BooleanField(default=False)
     thompson = models.BooleanField(default=False)
     glue = models.BooleanField(default=False)
