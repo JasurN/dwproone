@@ -5,6 +5,7 @@ cd ../dw_frontend &&
   yarn build &&
   mkdir -p ~/PycharmProjects/dwproone/frontend/production &&
   cp -r build/* ~/PycharmProjects/dwproone/frontend/production/ &&
+  rm -r build/*
   cd ~/PycharmProjects/dwproone &&
   pipenv run python manage.py makemigrations &&
   pipenv run python manage.py migrate &&
