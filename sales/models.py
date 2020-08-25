@@ -14,7 +14,7 @@ class Box(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.box_id = f'{self.customer.short_name}' \
+            self.box_id = f'{self.customer.short_name}-' \
                           f'{self.customer.number_of_box}'
             customer_update = Customer.objects.get(pk=self.customer.id)
             customer_update.number_of_box += 1
