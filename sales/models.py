@@ -14,8 +14,7 @@ class Box(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.box_id = f'{self.customer.short_name}-' \
-                          f'{self.customer.number_of_box}'
+            self.box_id = f'{self.customer.short_name}{self.customer.number_of_box}'
             customer_update = Customer.objects.get(pk=self.customer.id)
             customer_update.number_of_box += 1
             customer_update.save()
@@ -71,9 +70,9 @@ class Order(models.Model):
             last_order = Order.objects.last()
             today = datetime.today()
             if last_order is None:
-                last_order = []
-                last_order.last_id = 0
-            self.order_id = f'O-{str(today.year)[-2:]}0{today.month}{last_order.id}'
+                self.order_id = f'O{str(today.year)[-2:]}0{today.month}1'
+            else:
+                self.order_id = f'O{str(today.year)[-2:]}0{today.month}{last_order.id}'
             super(Order, self).save(*args, **kwargs)
 
     class Meta:

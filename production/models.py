@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from django.db import models
 
 from sales.models import Order
 
 
 class Production(models.Model):
+    production_id = models.CharField(max_length=30, unique=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     production_order = models.PositiveSmallIntegerField(default=1)
     scheduled_date = models.DateField()
@@ -18,6 +21,16 @@ class Production(models.Model):
     glue_defect = models.PositiveSmallIntegerField(default=0)
     stitching_amount = models.PositiveSmallIntegerField(default=0)
     stitching_defect = models.PositiveSmallIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            last_production = Production.objects.last()
+            today = datetime.today()
+            if last_production is None:
+                self.production_id = f'P{str(today.year)[-2:]}0{today.month}1'
+            else:
+                self.production_id = f'P{str(today.year)[-2:]}0{today.month}{last_production.id}'
+            super(Production, self).save(*args, **kwargs)
 
 
 class CorrugatorHistory(models.Model):
