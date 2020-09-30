@@ -1,12 +1,12 @@
 from django.urls import path
 
-from .views import OrdersListView, BoxListCreateView, CustomerListView, CustomerDetailView, ContractListCreateView, \
-    ContractDetailView, BoxDetailView, OrderDetailView
+from .views import OrderListView, BoxListCreateView, CustomerListView, CustomerDetailView, ContractListCreateView, \
+    ContractDetailView, BoxDetailView, OrderDetailView, OrderDeliveryListView
 
 app_name = 'sales'
 # api/sales/
 urlpatterns = [
-    path('orders/all/', OrdersListView.as_view()),
+    path('orders/all/', OrderListView.as_view()),
     path('orders/all/<int:pk>/', OrderDetailView.as_view())
 ]
 
@@ -23,4 +23,8 @@ urlpatterns += [
 urlpatterns += [
     path('contract/all/', ContractListCreateView.as_view()),
     path('contract/all/<int:pk>/', ContractDetailView.as_view())
+]
+
+urlpatterns += [
+    path('orders/delivery/all/', OrderDeliveryListView.as_view()),
 ]

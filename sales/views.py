@@ -2,14 +2,16 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sales.models import Order, Box, Customer, Contract
-from sales.serializers import OrdersSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
-    AddOrderSerializer
+from sales.filters import OrderDeliveryFilter, OrderFilter, BoxFilter
+from sales.models import Order, Box, Customer, Contract, OrderDelivery
+from sales.serializers import OrderSerializer, BoxSerializer, CustomerSerializer, AddBoxSerializer, ContractSerializer, \
+    AddOrderSerializer, OrderDeliverySerializer
 
 
-class OrdersListView(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrdersSerializer
+class OrderListView(generics.ListCreateAPIView):
+    queryset = Order.objects.filter(remaining__gt=0)
+    serializer_class = OrderSerializer
+    filterset_class = OrderFilter
 
     def create(self, request, *args, **kwargs):
         order_serializer = AddOrderSerializer(data=request.data)
@@ -20,22 +22,26 @@ class OrdersListView(generics.ListCreateAPIView):
                                      ship_date=order_serializer.data.get('ship_date'),
                                      quantity=order_serializer.data.get('quantity'),
                                      remaining=order_serializer.data.get('quantity'),
+                                     flex=request.data.get('flex', False),
+                                     thompson=request.data.get('thompson', False),
+                                     glue=request.data.get('glue', False),
+                                     stitching=request.data.get('stitching', False),
                                      delivered=0)
-        order.save()
-        return Response(data=OrdersSerializer(order).data, status=status.HTTP_201_CREATED)
+        return Response(data=OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
 class OrderDetailView(APIView):
-    serializer_class = OrdersSerializer
+    serializer_class = OrderSerializer
+    filterset_class = OrderFilter
 
     def get(self, request, pk):
         order = Order.objects.get(pk=pk)
-        order_serializer = OrdersSerializer(order)
+        order_serializer = OrderSerializer(order)
         return Response(status=status.HTTP_200_OK,
                         data=order_serializer.data)
 
     def patch(self, request, pk):
-        order_serializer = OrdersSerializer(data=request.data)
+        order_serializer = OrderSerializer(data=request.data)
         order_serializer.is_valid(raise_exception=True)
         order = Order.objects.get(pk=pk)
         if request.data.get('delivered_amount') > order.remaining:
@@ -43,14 +49,17 @@ class OrderDetailView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
         order.remaining = order.remaining - request.data.get('delivered_amount')
         order.delivered = order.delivered + request.data.get('delivered_amount')
+        OrderDelivery.objects.create(order=order,
+                                     amount=request.data.get('delivered_amount'))
         order.save()
-        return Response(data=OrdersSerializer(order).data,
+        return Response(data=OrderSerializer(order).data,
                         status=status.HTTP_200_OK)
 
 
 class BoxListCreateView(generics.ListCreateAPIView):
     queryset = Box.objects.all()
     serializer_class = BoxSerializer
+    filterset_class = BoxFilter
 
     def create(self, request, *args, **kwargs):
         box_serializer = AddBoxSerializer(data=request.data)
@@ -120,3 +129,9 @@ class ContractDetailView(APIView):
         contract = ContractSerializer(contract)
         return Response(status=status.HTTP_200_OK,
                         data=contract.data)
+
+
+class OrderDeliveryListView(generics.ListAPIView):
+    queryset = OrderDelivery.objects.all()
+    serializer_class = OrderDeliverySerializer
+    filterset_class = OrderDeliveryFilter

@@ -19,8 +19,7 @@ class PaperSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Paper
-        fields = ['id', 'paper_amount', 'paper_amount_remained_from_last_month',
-                  'company_name', 'paper_type',
+        fields = ['id', 'company_name', 'paper_type',
                   'paper_format', 'grammage']
 
 
