@@ -10,25 +10,28 @@ def create_user():
 
 def create_customers(count):
     customers = []
+    last_order = Customer.objects.last()
+    customer_id = 1
+    if last_order:
+        customer_id = last_order.id
     for counter_id in range(count):
         customers.append(
-            Customer.objects.create(name=f'Customer {counter_id}')
+            Customer.objects.create(name=f'Customer {counter_id}', short_name=f'customer{customer_id}')
         )
+        customer_id += 1
     return customers
 
 
 def create_boxes(count):
     boxes = []
-    customer = Customer.objects.create(
-        name=f'Box customer'
-    )
+    customers = create_customers(count)
     for counter_id in range(count):
         boxes.append(
             Box.objects.create(length=300,
                                width=400,
                                height=500,
                                configuration='SSSSS',
-                               customer_id=customer.id,
+                               customer_id=customers[counter_id].id,
                                dimension='300x400x500')
         )
     return boxes
@@ -36,12 +39,10 @@ def create_boxes(count):
 
 def create_contract(count):
     contracts = []
-    customer = Customer.objects.create(
-        name=f'Contract customer'
-    )
+    customers = create_customers(count)
     for counter_id in range(count):
         contracts.append(
-            Contract.objects.create(customer_id=customer.id,
+            Contract.objects.create(customer_id=customers[counter_id].id,
                                     contract_number=f'DPC LB 19050{counter_id}')
         )
     return contracts
