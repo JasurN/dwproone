@@ -13,10 +13,10 @@ def create_customers(count):
     last_order = Customer.objects.last()
     customer_id = 1
     if last_order:
-        customer_id = last_order.id
+        customer_id = last_order.id + 1
     for counter_id in range(count):
         customers.append(
-            Customer.objects.create(name=f'Customer {counter_id}', short_name=f'customer{customer_id}')
+            Customer.objects.create(name=f'Customer {customer_id}', short_name=f'customer{customer_id}')
         )
         customer_id += 1
     return customers

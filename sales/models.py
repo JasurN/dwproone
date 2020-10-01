@@ -72,7 +72,7 @@ class Order(models.Model):
             if last_order is None:
                 self.order_id = f'O{str(today.year)[-2:]}0{today.month}1'
             else:
-                self.order_id = f'O{str(today.year)[-2:]}0{today.month}{last_order.id}'
+                self.order_id = f'O{str(today.year)[-2:]}0{today.month}{last_order.id + 1}'
             super(Order, self).save(*args, **kwargs)
 
     class Meta:
