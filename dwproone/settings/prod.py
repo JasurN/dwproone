@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ['localhost', 'dwproone.uz', 'www.dwproone.uz']
+ALLOWED_HOSTS = ['localhost', 'erp.jnabijonov.uz', 'www.erp.jnabijonov.uz']
 ADMINS = [('Jasurbek', '97jasur@gmail.com'), ]
 SECRET_KEY = os.environ['SECRET_KEY']  # gets from gunicorn service
 DEBUG = False
