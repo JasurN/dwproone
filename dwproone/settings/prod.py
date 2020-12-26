@@ -7,8 +7,8 @@ DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dwprooneprod',
-        'USER': 'dwproone',
+        'NAME': os.environ['db_name'],
+        'USER': os.environ['db_user'],
         'PASSWORD': os.environ['db_password'],  # gets from gunicorn service
         'HOST': 'localhost',
         'PORT': ''
